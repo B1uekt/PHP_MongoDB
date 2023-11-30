@@ -1,3 +1,20 @@
+<?php 
+    require 'vendor/autoload.php';
+
+    use MongoDB\Client;
+    
+    $mongoUri = "mongodb://localhost:27017";
+    
+    $client = new Client($mongoUri);
+    
+    
+    $database = $client->selectDatabase('ProjectCSDL'); 
+    $collectionGiangVien = $database->selectCollection('giangvien');
+    $collectionMajor = $database->selectCollection('khoa');
+    $resultSet = $collectionGiangVien->find();
+    $resultSet1 = $collectionMajor->find();
+    $resultSet2 = $collectionMajor->find();
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -13,7 +30,7 @@
         <!--Icon link-->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-        
+        <script src="js/ajax.js"></script>
     </head>
     <body>
         <div class="model-0 hide">
@@ -23,30 +40,25 @@
                     <i class="fa fa-window-close"></i>
                 </div>
                 <div class="model-body-0">
-                    <form>
+                    <form name="Update" action="UpdateGV.php" method="post" id="form-login" enctype="multipart/form-data" >
                         <label for="name">Họ và  Tên</label><br>
                         <input class="name" type="text" id="name" name="name" value=""><br>
                         <label for="email">Email</label><br>
                         <input class="name" type="text" id="email" name="email" value=""><br>
                         <label for="phone">Số điện thoại</label><br>
                         <input class="name" type="text" id="phone" name="phone" value=""><br>
-                        <label for="birthday">Ngày sinh</label><br>
-                        <input class ="name" type="date" id="birthday" name="birthday" value="2018-07-22"/>
-                        <label for="cars">Giới tính</label><br>
-                        <select class="name" name="gender" id="gernder">
-                            <option value="Nam">Nam</option>
-                            <option value="Nữ">Nữ</option>
+                        <label for="cars">Khoa</label><br>
+                        <select class="name" name="khoa" id="khoa">
+                        <?php foreach ($resultSet2 as $data2): ?>
+                            <option value="<?php echo $data2['TENKHOA'] ?>"><?php echo $data2['TENKHOA'] ?></option>
+                        <?php endforeach; ?>
                         </select>
                         <label for="cars">Trạng Thái</label><br>
                         <select class="name" name="status" id="status">
-                            <option value="ngung">Ngừng công tác</option>
-                            <option value="hiendien">Hiện diện</option>
+                            <option value="Ngừng công tác">Ngừng công tác</option>
+                            <option value="Hiện diện">Hiện diện</option>
                         </select>
-                        <div class="id-number my-3">
-                            <label for="id">MAGV</label><br>
-                            <input type="text" name="id" id="id" disabled> 
-                        </div>
-                        <input class="submit" type="submit" value="SUBMIT">
+                        <input class="submit" type="submit" value="SUBMIT" name ="submit">
                     </form>
                 </div>
             </div>
@@ -58,21 +70,27 @@
                     <i class="fa fa-window-close"></i>
                 </div>
                 <div class="model-body-0">
-                    <form>
+                    <form name="add" action="AddGV.php" method="post" id="form-login" enctype="multipart/form-data" >
                         <label for="name">Họ và  Tên</label><br>
                         <input class="name" type="text" id="name" name="name" value=""><br>
                         <label for="email">Email</label><br>
                         <input class="name" type="text" id="email" name="email" value=""><br>
                         <label for="email">Số điện thoại</label><br>
-                        <input class="name" type="text" id="email" name="email" value=""><br>
+                        <input class="name" type="text" name="sdt" value=""><br>
                         <label for="email">Ngày sinh</label><br>
                         <input class ="name" type="date" id="birthday" name="birthday" value="2018-07-22"/>
+                        <label for="cars">Khoa</label><br>
+                        <select class="name" name="khoa" id="status">
+                        <?php foreach ($resultSet1 as $data1): ?>
+                            <option value="<?php echo $data1['TENKHOA'] ?>"><?php echo $data1['TENKHOA'] ?></option>
+                        <?php endforeach; ?>
+                        </select>
                         <label for="cars">Giới tính</label><br>
-                        <select name="gender" id="gernder">
+                        <select name="gender" id="gender">
                             <option value="Nam">Nam</option>
                             <option value="Nữ">Nữ</option>
                         </select>
-                        <input class="submit" type="submit" value="SUBMIT">
+                        <input name ="submit" class="submit" type="submit" value="SUBMIT">
                     </form>
                 </div>
             </div>
@@ -99,22 +117,33 @@
                 <div class="container-fluid row-title d-flex my-3">
                     <div class="col-1 text-center title">MAGV</div>
                     <div class="col-3 text-center title">HỌ VÀ TÊN</div>
-                    <div class="col-2 text-center title">EMAIL</div>
-                    <div class="col-2 text-center title">SDT</div>
-                    <div class="col-2 text-center title">NGÀNH</div>
-                    <div class="col-2 text-center title">ACTION</div>
+                    <div class="col-3 text-center title">EMAIL</div>
+                    
+                    <div class="col-2 text-center title">KHOA</div>
+                    <div class="col-3 text-center title">ACTION</div>
                 </div>
-                <div class="conatiern-fluid row-product d-flex">
-                    <div class="col-1 text-center product"><p>12345678</p></div>
-                    <div class="col-3 product"><p>Nguyễn Văn A</p></div>
-                    <div class="col-2 text-center product"><p>nguyenvanA@sgu.edu.vn</p></div>
-                    <div class="col-2 text-center product">0931368xxx</div>
-                    <div class="col-2 text-center product"><p>Kỹ thuật phần mềm</p></div>
-                    <div class="col-2 text-center product btn-de-up">
-                        <button  class="btn but-update">UPDATE</button>
-                        <a href="" onclick="YesorNo()"  class="btn but-delete ">DELETE</a>
-                    </div>
-                </div>
+                
+                    <?php foreach ($resultSet as $data): ?>
+                        <div class="container-fluid row-product d-flex">
+                            <div class="col-1 text-center title"><?php echo $data['MAGV']; ?></div>
+                            <div class="col-3 product"><p><?php echo $data['TENGV']; ?></p></div>
+                            <div style ="overflow: auto; overflow-x: hidden; overflow-y: auto;" class="col-3 text-center product"><p><?php echo $data['EMAIL']; ?></p></div>
+                            
+
+                            <?php
+                            // Truy vấn dữ liệu từ bảng major dựa trên idMajor của giangvien
+                            $majorData = $collectionMajor->findOne(['MAKHOA' => $data['MAKHOA']]);
+                            ?>
+
+                            <div class="col-2 text-center product"><p><?php echo $majorData['TENKHOA']; ?></p></div>
+
+                            <div class="col-3 text-center product btn-de-up">
+                                <button class="btn but-update" onclick="UpdateGV(this)" name="update" value= "<?php echo $data['MAGV'] ?>" >UPDATE</button>
+                                <a style = "" class="btn1 but-delete "><?php echo $data['TRANGTHAI'] ?></a>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                
             </div>
         </div>
         <!--Open Close Model-->
@@ -170,9 +199,6 @@
               });
             }
 
-            function YesorNo(){
-                confirm('DO YOU WANT TO DELETE THIS PRODUCT ?')
-            }
         </script>
     </body>
 </html>

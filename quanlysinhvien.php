@@ -1,3 +1,19 @@
+<?php 
+    require 'vendor/autoload.php';
+
+    use MongoDB\Client;
+    
+    $mongoUri = "mongodb://localhost:27017";
+    
+    $client = new Client($mongoUri);
+    
+    
+    $database = $client->selectDatabase('ProjectCSDL'); 
+    $collectionSinhVien = $database->selectCollection('sinhvien');
+    $collectionLop = $database->selectCollection('lop');
+    $collectionNganh= $database->selectCollection('nganh');
+    $resultSet = $collectionSinhVien->find();
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -103,22 +119,31 @@
                 <div class="container-fluid row-title d-flex my-3">
                     <div class="col-1 text-center title">MSSV</div>
                     <div class="col-3 text-center title">HỌ VÀ TÊN</div>
-                    <div class="col-2 text-center title">EMAIL</div>
-                    <div class="col-2 text-center title">SDT</div>
+                    <div class="col-2 text-center title">NGÀY SINH</div>
                     <div class="col-2 text-center title">NGÀNH</div>
+                    <div class="col-2 text-center title">LỚP</div>
                     <div class="col-2 text-center title">ACTION</div>
                 </div>
-                <div class="conatiern-fluid row-product d-flex">
-                    <div class="col-1 text-center product"><p>12345678</p></div>
-                    <div class="col-3 product"><p>Nguyễn Văn A</p></div>
-                    <div class="col-2 text-center product"><p>nguyenvanA@sgu.edu.vn</p></div>
-                    <div class="col-2 text-center product">0931368xxx</div>
-                    <div class="col-2 text-center product"><p>Kỹ thuật phần mềm</p></div>
-                    <div class="col-2 text-center product btn-de-up">
-                        <button  class="btn but-update">UPDATE</button>
-                        <a href="" onclick="YesorNo()"  class="btn but-delete ">DELETE</a>
-                    </div>
-                </div>
+                <?php foreach ($resultSet as $data): ?>
+                        <div class="container-fluid row-product d-flex">
+                            <div class="col-1 text-center product"><p><?php echo $data['MASV']; ?></p></div>
+                            <div class="col-3 product"><p><?php echo $data['HOTEN']; ?></p></div>
+                            <div class="col-2 text-center product"><p><?php echo $data['NGAYSINH']; ?></p></div>
+                            
+
+                            <?php
+                            $majorData = $collectionLop->findOne(['MALOP' => $data['MALOP']]);
+                            $Nganh= $collectionNganh->findOne(['MANGANH' => $majorData['MANGANH']]);
+                            ?>
+
+                            <div class="col-2 text-center product"><p><?php echo $Nganh['TENNGANH']; ?></p></div>
+                            <div class="col-2 text-center product"><?php echo $data['NGAYSINH']; ?></div>
+                            <div class="col-2 text-center product btn-de-up">
+                                <button class="btn but-update">UPDATE</button>
+                                <a href="" onclick="YesorNo()" class="btn but-delete ">DELETE</a>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
             </div>
         </div>
         <!--Open Close Model-->
