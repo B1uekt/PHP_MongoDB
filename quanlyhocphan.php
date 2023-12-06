@@ -1,5 +1,50 @@
 <!DOCTYPE html>
 <html>
+<?php
+    session_start();
+    require 'vendor/autoload.php';
+
+    use MongoDB\Client;     
+    $mongoUri = "mongodb://localhost:27017";
+    $client = new Client($mongoUri);
+
+    $database = $client->selectDatabase('ProjectCSDL');
+    $collection1 = $database->selectCollection('hocphan');
+    $collection2 = $database->selectCollection('nhomhocphan');
+    $collection3 = $database->selectCollection('chitietnganh');
+    $collection4 = $database->selectCollection('nganh');
+    if(isset($_REQUEST['filter']) && $_REQUEST['filter'] == 'filter'){
+        $_SESSION['hocphan'] = $_REQUEST;
+        if(!empty($_SESSION['hocphan'])){
+            $query = [];
+            foreach($_SESSION['hocphan'] as $field => $value){
+                if(!empty($value)){
+                    switch($field){
+                        case 'nganh':
+                            $nganh = $collection3->find(['MANGANH' => $value]);
+                            $in = [];
+                            foreach ($nganh as $data):
+                                array_push($in, $data['MAHP']);
+                            endforeach;
+                            $query["MAHP"]['$in'] = $in;
+                            break;
+                        case 'tenhp':
+                            $regex = new MongoDB\BSON\Regex($value);
+                            $query["TENHP"]['$regex'] = $regex;
+                            break;
+                    }
+                }
+            }
+
+        }
+    }
+    if(!empty($query)){
+        $document = $collection1->find($query);
+    }else{
+        $document = $collection1->find();
+    }
+    $all_nganh = $collection4->find();
+?>
     <head>
         <title>Quản lý học phần</title>
         <!--CSS link-->
@@ -14,6 +59,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="js/ajax.js"></script>
     </head>
     <body>
         <div class="model-0 hide" id = "addinfor">
@@ -23,17 +69,17 @@
                     <i class="fa fa-window-close"></i>
                 </div>
                 <div class="model-body-0">
-                    <form>
+                    <form id = "formHocphan">
                         <label for="name">Tên học phần</label><br>
                         <input class="name" type="text" id="name" name="name" value=""><br>
-                        <label for="email">Số tính chỉ</label><br>
-                        <input class="name" type="text" id="email" name="email" value=""><br>
-                        <label for="cars">Trạng thái</label><br>
-                        <select name="status" id="status">
-                            <option value="dong">Đóng</option>
-                            <option value="mo">Mở</option>
+                        <label for="amount">Số tính chỉ</label><br>
+                        <input class="name" type="text" id="amount" name="amount" value=""><br>
+                        <label for="status">Trạng thái</label><br>
+                        <select class ="name" name="status" id="status">
+                            <option value="Active">Active</option>
+                            <option value="Passive">Passive</option>
                         </select>
-                        <input class="submit" type="submit" value="SUBMIT">
+                        <button class="submit" type="submit" onclick="insertData('formHocphan','themhocphan.php')">SUBMIT</button>
                     </form>
                 </div>
             </div>
@@ -51,14 +97,14 @@
             <div class="my-4 sort-search d-flex">     
                 <form class="col-6" action="">
                     <div class="search d-flex">
-                        <input type="text" placeholder="&#160;&#160;&#160;Search here">
+                        <input type="text" name="tenhp" placeholder="&#160;&#160;&#160;Search here">
                         <select name="nganh" id="nganh">
                             <option value="">Chọn ngành</option>
-                            <option value="cntt">CÔng nghệ thông tin</option>
-                            <option value="ktpm">Kỹ thuật phần mềm</option>
-                            <option value="khmt">Khoa học máy tính</option>
+                        <?php foreach ($all_nganh as $data): ?>
+                            <option value=<?php echo $data['MANGANH']; ?>><?php echo $data['TENNGANH']; ?></option>
+                        <?php endforeach; ?>
                         </select>     
-                        <button type="submit"><span class="material-symbols-outlined">search</span></button>
+                        <button type="submit" value="filter" name="filter"><span class="material-symbols-outlined">search</span></button>
                     </div>
                 </form>    
             </div>
@@ -71,17 +117,35 @@
                     <div class="col-2 text-center title">Số nhóm học phần</div>
                     <div class="col-2 text-center title">ACTION</div>
                 </div>
-                <div class="conatiern-fluid row-order d-flex">
-                    <div class="col-2 text-center product"><p>812063</p></div>
-                    <div class="col-2 text-center product"><p>Cơ sở dữ liệu nâng cao</p></div>
-                    <div class="col-2 text-center product"><p>3</p></div>
-                    <div class="col-2 text-center product"><p>None</p></div>
-                    <div class="col-2 text-center product"><p>20</p></div>
-                    <div class="col-2 text-center order btn-de-up">
-                        <!--<button class="btn but-update">UPDATE</button>-->
-                        <a href="" onclick="YesorNo()"  class="btn but-update ">MỞ</a>
+                <?php foreach ($document as $data): ?>
+                    <div class="conatiern-fluid row-order d-flex">
+                        <div class="col-2 text-center product"><p><?php echo $data['MAHP']; ?></p></div>
+                        <div class="col-2 text-center product"><p><?php echo $data['TENHP']; ?></p></div>
+                        <div class="col-2 text-center product"><p><?php echo $data['SOTINCHI']; ?></p></div>
+                        <div class="col-2 text-center product"><p><?php echo $data['TRANGTHAI']; ?></p></div>
+                        <?php
+                            // Truy vấn số lượng nhóm lớp học phần
+                            $pipeline = [
+                                [
+                                    '$match' => ['MAHP' => $data['MAHP']] 
+                                ],
+                                [
+                                    '$count' => 'totalRecords' 
+                                ]
+                            ];
+                            $totalRecord = $collection2->aggregate($pipeline)->toArray();
+                            if($totalRecord != null){
+                        ?>
+                            <div class="col-2 text-center product"><p><?php echo $totalRecord[0]->totalRecords; ?></p></div>
+                        <?php }else{ ?>
+                            <div class="col-2 text-center product"><p>0</p></div>
+                        <?php } ?>
+                        <div class="col-2 text-center order btn-de-up">
+                            <!--<button class="btn but-update">UPDATE</button>-->
+                            <a href="" onclick="YesorNo()"  class="btn but-update ">MỞ</a>
+                        </div>
                     </div>
-                </div>
+                <?php endforeach; ?>
             </div>
         </div>
         <script>
@@ -113,17 +177,12 @@
             var modal = document.getElementById('addinfor');
             var btn = document.getElementById('btn-addinfor');
             var icon = document.querySelector('#addinfor i');
-            var submit = document.querySelector('#addinfor .model-body-0 .submit')
             // Khi người dùng click vào nút, mở modal
             btn.onclick = function () {
                 modal.style.display = 'block';
             };
 
             icon.onclick = function () {
-                modal.style.display = 'none';
-            };
-
-            submit.onclick = function () {
                 modal.style.display = 'none';
             };
 
