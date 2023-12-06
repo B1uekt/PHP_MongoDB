@@ -14,6 +14,16 @@
     $resultSet = $collectionGiangVien->find();
     $resultSet1 = $collectionMajor->find();
     $resultSet2 = $collectionMajor->find();
+    if(isset($_GET['search'])){
+        $keyword = $_GET['search'];
+        $filter = [
+            '$or' => [
+                ['TENGV' => new MongoDB\BSON\Regex($keyword)],
+                ['MAGV' => $keyword]
+            ]
+        ];
+    $resultSet = $collectionGiangVien->find($filter);
+    }
 ?>
 <!DOCTYPE html>
 <html>
@@ -107,7 +117,7 @@
             <div class="my-4 sort-search d-flex">     
                 <form class="col-4" action="">
                     <div class="search d-flex">
-                        <input type="text" placeholder="&#160;&#160;&#160;Search here" style = "width:100%">     
+                        <input name="search" type="text" placeholder="&#160;&#160;&#160;Search here" style = "width:100%">     
                         <button type="submit" style="font-size:30px;margin-left:3px; margin-top: auto; margin-bottom:auto;"><span class="material-symbols-outlined">search</span></button>
                     </div>
                 </form>  
@@ -122,8 +132,10 @@
                     <div class="col-2 text-center title">KHOA</div>
                     <div class="col-3 text-center title">ACTION</div>
                 </div>
-                
-                    <?php foreach ($resultSet as $data): ?>
+                            
+                    <?php
+                    
+                    foreach ($resultSet as $data): ?>
                         <div class="container-fluid row-product d-flex">
                             <div class="col-1 text-center title"><?php echo $data['MAGV']; ?></div>
                             <div class="col-3 product"><p><?php echo $data['TENGV']; ?></p></div>
