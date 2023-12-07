@@ -41,6 +41,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
         <script src="js/ajax.js"></script>
+        <script src="js/QLGV.js"></script>
     </head>
     <body>
         <div class="model-0 hide">
@@ -136,7 +137,7 @@
                     <?php
                     
                     foreach ($resultSet as $data): ?>
-                        <div class="container-fluid row-product d-flex">
+                        <div class="container-fluid row-product d-flex" onclick="redirectToUpdatePage('<?php echo $data['MAGV']; ?>')">
                             <div class="col-1 text-center title"><?php echo $data['MAGV']; ?></div>
                             <div class="col-3 product"><p><?php echo $data['TENGV']; ?></p></div>
                             <div style ="overflow: auto; overflow-x: hidden; overflow-y: auto;" class="col-3 text-center product"><p><?php echo $data['EMAIL']; ?></p></div>
@@ -150,7 +151,7 @@
                             <div class="col-2 text-center product"><p><?php echo $majorData['TENKHOA']; ?></p></div>
 
                             <div class="col-3 text-center product btn-de-up">
-                                <button class="btn but-update" onclick="UpdateGV(this)" name="update" value= "<?php echo $data['MAGV'] ?>" >UPDATE</button>
+                                <button class="btn but-update" onclick="UpdateGV(this); event.stopPropagation();" name="update" value= "<?php echo $data['MAGV'] ?>" >UPDATE</button>
                                 <a style = "" class="btn1 but-delete "><?php echo $data['TRANGTHAI'] ?></a>
                             </div>
                         </div>
@@ -212,5 +213,6 @@
             }
 
         </script>
+        
     </body>
 </html>

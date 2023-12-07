@@ -69,11 +69,16 @@ body{
 .row-title .title{
     font-weight: bold;
 }
+.row-product{
+    justify-content: center;
+    align-items: center;
+}
 .row-product .product p{
     margin-top: auto;
     margin-bottom: auto;
     text-transform: uppercase;
     text-align: center;
+    
 }
 .row-product .product img{
     width: 100%;
@@ -233,4 +238,16 @@ body{
         opacity: 1;
    }
 }
-
+.row-product:hover {
+    background-color: #7ed6df; /* Màu nền khi hover */
+    cursor: pointer; /* Đổi hình con trỏ khi hover */
+    transition: 0.4s ease;
+    
+}
+.row-product button:hover {
+    background-color: #30336b; /* Màu nền khi hover */
+    cursor: pointer; /* Đổi hình con trỏ khi hover */
+    transition: 0.4s ease;
+    color:#ffffff
+    
+}
