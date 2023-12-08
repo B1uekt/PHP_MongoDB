@@ -13,6 +13,17 @@
     $collectionLop = $database->selectCollection('lop');
     $collectionNganh= $database->selectCollection('nganh');
     $resultSet = $collectionSinhVien->find();
+    if(isset($_GET['search'])){
+        $keyword = $_GET['search'];
+        $filter = [
+            '$or' => [
+                ['HOTEN' => new MongoDB\BSON\Regex($keyword)],
+                ['MASV' => $keyword]
+            ]
+        ];
+        //var_dump($filter);
+    $resultSet = $collectionSinhVien->find($filter);
+    }
 ?>
 <!DOCTYPE html>
 <html>
@@ -29,7 +40,7 @@
         <!--Icon link-->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-        
+        <script src="js/QLSV.js"></script>
     </head>
     <body>
         <div class="model-0 hide">
@@ -39,13 +50,13 @@
                     <i class="fa fa-window-close"></i>
                 </div>
                 <div class="model-body-0">
-                    <form>
+                    <form name="Update" action="UpdateSV.php" method="post" id="form-login" enctype="multipart/form-data">
                         <label for="name">Họ và  Tên</label><br>
                         <input class="name" type="text" id="name" name="name" value=""><br>
-                        <label for="email">Email</label><br>
-                        <input class="name" type="text" id="email" name="email" value=""><br>
-                        <label for="email">Số điện thoại</label><br>
-                        <input class="name" type="text" id="email" name="email" value=""><br>
+                        <label for="class">Lớp</label><br>
+                        <input class="name" type="text" id="class" name="class" value="" ><br>
+                        <label for="class">Khoa</label><br>
+                        <input class="name" type="text" id="major" name="major" value=""><br>
                         <label for="birthday">Ngày sinh</label><br>
                         <input class ="name" type="date" id="birthday" name="birthday" value="2018-07-22"/>
                         <label for="address">Địa chỉ</label><br>
@@ -57,14 +68,10 @@
                         </select><br>
                         <label for="cars">Trạng thái</label><br>
                         <select class="name" name="status" id="status">
-                            <option value="hoan">Hoãn</option>
-                            <option value="nghi">Nghĩ Học</option>\
-                            <option value="hiendien">Hiện Diện</option>
+                            <option value="Hoãn">Hoãn</option>
+                            <option value="Nghỉ học">Nghĩ Học</option>
+                            <option value="Hiện diện">Hiện Diện</option>
                         </select>
-                        <div class="id-number my-3">
-                            <label for="id">MSSV</label><br>
-                            <input type="text" name="id" id="id" disabled> 
-                        </div>
                         <input class="submit" type="submit" value="SUBMIT">
                     </form>
                 </div>
@@ -80,16 +87,20 @@
                     <form>
                         <label for="name">Họ và Tên</label><br>
                         <input class="name" type="text" id="name" name="name" value=""><br>
-                        <label for="email">Email</label><br>
-                        <input class="name" type="text" id="email" name="email" value=""><br>
-                        <label for="email">Số điện thoại</label><br>
-                        <input class="name" type="text" id="email" name="email" value=""><br>
                         <label for="email">Ngày sinh</label><br>
                         <input class ="name" type="date" id="birthday" name="birthday" value="2018-07-22"/>
                         <label for="address">Địa chỉ</label><br>
                         <input class ="name" type="text" id="address" name="address" value=""/>
+                        <label for="address">LỚP</label><br>
+                        <select class="name" name="khoa" id="khoa">
+                        <?php 
+                        $resultSet2 = $collectionLop->find();
+                        foreach ($resultSet2 as $data2): ?>
+                            <option value="<?php echo $data2['TENLOP'] ?>"><?php echo $data2['TENLOP'] ?></option>
+                        <?php endforeach; ?>
+                        </select>
                         <label for="cars">Giới tính</label><br>
-                        <select name="gender" id="gernder">
+                        <select style="margin-bottom: 10px" name="gender" id="gernder">
                             <option value="Nam">Nam</option>
                             <option value="Nữ">Nữ</option>
                         </select>
@@ -109,7 +120,7 @@
             <div class="my-4 sort-search d-flex">     
                 <form class="col-4" action="">
                     <div class="search d-flex">
-                        <input type="text" placeholder="&#160;&#160;&#160;Search here" style = "width:100%">     
+                        <input name="search" type="text" placeholder="&#160;&#160;&#160;Search here" style = "width:100%">     
                         <button type="submit" style="font-size:30px;margin-left:3px; margin-top: auto; margin-bottom:auto;"><span class="material-symbols-outlined">search</span></button>
                     </div>
                 </form>  
@@ -122,6 +133,7 @@
                     <div class="col-2 text-center title">NGÀY SINH</div>
                     <div class="col-2 text-center title">NGÀNH</div>
                     <div class="col-2 text-center title">LỚP</div>
+                    <div class="col-2 text-center title">STATUS</div>
                     <div class="col-2 text-center title">ACTION</div>
                 </div>
                 <?php foreach ($resultSet as $data): ?>
@@ -137,10 +149,11 @@
                             ?>
 
                             <div class="col-2 text-center product"><p><?php echo $Nganh['TENNGANH']; ?></p></div>
-                            <div class="col-2 text-center product"><?php echo $data['NGAYSINH']; ?></div>
+                            <?php ?>
+                            <div class="col-2 text-center product"><?php echo $majorData['TENLOP']; ?></div>
+                            <div class="col-2 text-center title"><?php echo $data['TRANGTHAI']; ?></div>
                             <div class="col-2 text-center product btn-de-up">
-                                <button class="btn but-update">UPDATE</button>
-                                <a href="" onclick="YesorNo()" class="btn but-delete ">DELETE</a>
+                                <button onclick="UpdateSV(this); event.stopPropagation();" name="update" value= "<?php echo $data['MASV'] ?>" class="btn but-update">UPDATE</button>
                             </div>
                         </div>
                     <?php endforeach; ?>
