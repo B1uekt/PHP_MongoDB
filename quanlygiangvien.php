@@ -131,7 +131,8 @@
                     <div class="col-3 text-center title">EMAIL</div>
                     
                     <div class="col-2 text-center title">KHOA</div>
-                    <div class="col-3 text-center title">ACTION</div>
+                    <div class="col-2 text-center title">TRẠNG THÁI</div>
+                    <div class="col-2 text-center title">ACTION</div>
                 </div>
                             
                     <?php
@@ -149,10 +150,10 @@
                             ?>
 
                             <div class="col-2 text-center product"><p><?php echo $majorData['TENKHOA']; ?></p></div>
-
-                            <div class="col-3 text-center product btn-de-up">
+                            <div class="col-2 text-center title"><?php echo $data['TRANGTHAI'] ?></div>
+                            <div class="col-2 text-center product btn-de-up">
                                 <button class="btn but-update" onclick="UpdateGV(this); event.stopPropagation();" name="update" value= "<?php echo $data['MAGV'] ?>" >UPDATE</button>
-                                <a style = "" class="btn1 but-delete "><?php echo $data['TRANGTHAI'] ?></a>
+                                <button class="btn but-update" onclick="Reset('<?php echo $data['MAGV'] ?>'); event.stopPropagation();" name="reset"  >RESET</button>
                             </div>
                         </div>
                     <?php endforeach; ?>

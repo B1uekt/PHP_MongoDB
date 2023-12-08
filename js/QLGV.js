@@ -21,3 +21,6 @@ function redirectToUpdatePage(magv) {
     // Chuyển đến trang cần thiết với thông tin cần thiết
     window.location.href = 'detail_page.php?magv=' + magv;
 }
+function Reset(magv){
+    window.location.href = 'resetpwd.php?magv=' + magv;
+}
