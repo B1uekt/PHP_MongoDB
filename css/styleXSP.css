@@ -84,10 +84,7 @@
       font-size: 18px;
   }
   table tr:hover{
-      background: #7ed6df;
-  }
-  table tr#non-h:hover{
-      background: white;
+      background: #CAD3C8;
   }
   th p{
       text-decoration: underline;
@@ -124,4 +121,8 @@ th {
 .inp input{
   width: 30%;
   margin: 10px;
+}
+.detail tr#non-h{
+  background-color: #07689F;
+  color:#f0f0f0;
 }

@@ -84,7 +84,7 @@
                     <i class="fa fa-window-close"></i>
                 </div>
                 <div class="model-body-0">
-                    <form>
+                    <form name="add" action="AddSV.php" method="post" id="form-login" enctype="multipart/form-data">
                         <label for="name">Họ và Tên</label><br>
                         <input class="name" type="text" id="name" name="name" value=""><br>
                         <label for="email">Ngày sinh</label><br>
@@ -92,7 +92,7 @@
                         <label for="address">Địa chỉ</label><br>
                         <input class ="name" type="text" id="address" name="address" value=""/>
                         <label for="address">LỚP</label><br>
-                        <select class="name" name="khoa" id="khoa">
+                        <select class="name" name="class" id="class">
                         <?php 
                         $resultSet2 = $collectionLop->find();
                         foreach ($resultSet2 as $data2): ?>
@@ -100,11 +100,11 @@
                         <?php endforeach; ?>
                         </select>
                         <label for="cars">Giới tính</label><br>
-                        <select style="margin-bottom: 10px" name="gender" id="gernder">
+                        <select style="margin-bottom: 10px" name="gender" id="gender">
                             <option value="Nam">Nam</option>
                             <option value="Nữ">Nữ</option>
                         </select>
-                        <input class="submit" type="submit" value="SUBMIT">
+                        <input name ="submit" class="submit" type="submit" value="SUBMIT">
                     </form>
                 </div>
             </div>
@@ -137,7 +137,7 @@
                     <div class="col-2 text-center title">ACTION</div>
                 </div>
                 <?php foreach ($resultSet as $data): ?>
-                        <div class="container-fluid row-product d-flex">
+                        <div class="container-fluid row-product d-flex" onclick="redirectToUpdatePage('<?php echo $data['MASV']; ?>')">
                             <div class="col-1 text-center product"><p><?php echo $data['MASV']; ?></p></div>
                             <div class="col-3 product"><p><?php echo $data['HOTEN']; ?></p></div>
                             <div class="col-2 text-center product"><p><?php echo $data['NGAYSINH']; ?></p></div>
@@ -154,6 +154,7 @@
                             <div class="col-2 text-center title"><?php echo $data['TRANGTHAI']; ?></div>
                             <div class="col-2 text-center product btn-de-up">
                                 <button onclick="UpdateSV(this); event.stopPropagation();" name="update" value= "<?php echo $data['MASV'] ?>" class="btn but-update">UPDATE</button>
+                                <button onclick="Reset('<?php echo $data['MASV'] ?>'); event.stopPropagation();" name="update" class="btn but-update">RESET</button>
                             </div>
                         </div>
                     <?php endforeach; ?>

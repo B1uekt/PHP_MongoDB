@@ -1,3 +1,6 @@
+:root {
+    --color-primary: #07689F; /* Đặt giá trị màu sắc cho biến --color-primary */
+}
 * {
     font-family: 'Roboto', sans-serif;
 }
@@ -238,15 +241,36 @@ body{
    }
 }
 .row-product:hover {
-    background-color: #7ed6df; /* Màu nền khi hover */
-    cursor: pointer; /* Đổi hình con trỏ khi hover */
+    background-color: #CAD3C8; 
+    cursor: pointer; 
     transition: 0.4s ease;
     
 }
 .row-product button:hover {
-    background-color: #30336b; /* Màu nền khi hover */
-    cursor: pointer; /* Đổi hình con trỏ khi hover */
+    background-color: #30336b; 
+    cursor: pointer; 
     transition: 0.4s ease;
     color:#ffffff
     
+}
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+.td{
+    border: 1px solid #ddd;
+    background-color: #000;
+    margin-left: 20px
+}
+tr#non-j{
+    background-color:#A2D5F2;
+    color: #000;
+    
+}
+tr#non-j th{
+    font-weight: 700;
+}
+button.icon-search:hover{
+    background-color: #CAD3C8;
 }

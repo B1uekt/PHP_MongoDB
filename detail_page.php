@@ -11,8 +11,27 @@
     $database = $client->selectDatabase('ProjectCSDL'); 
 	$collectionNHP = $database->selectCollection('nhomhocphan');
 	$collectionHP = $database->selectCollection('hocphan');
-	$MaGV = $_GET['magv'];
-	$resultSet = $collectionNHP->find(['MAGV' => $MaGV]);
+	$collectionKQ = $database->selectCollection('ketqua');
+	$collectionHK = $database->selectCollection('hocky');
+	if(isset($_GET['magv'])) {
+		$MaGV = $_GET['magv'];
+		$resultSet = $collectionNHP->find(['MAGV' => $MaGV]);
+	}
+	else if(isset($_GET['masv'])) {
+		$MaSV = $_GET['masv'];
+		$resultSet = $collectionKQ->find(['MASV' => $MaSV]);
+		$diemTheoHocKi = [];
+		foreach ($resultSet as $document) {
+			$maHocKi = $document['MAHK'];
+		
+			if (!isset($diemTheoHocKi[$maHocKi])) {
+				$diemTheoHocKi[$maHocKi] = [];
+			}
+			if (!in_array($document, $diemTheoHocKi[$maHocKi], true)) {
+				$diemTheoHocKi[$maHocKi][] = $document;
+			}
+		}
+	}
 ?>
 
 
@@ -31,30 +50,42 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 </head>
 <body>
-	<h1 class = "text-center" style="margin: 24px">CÁC NHÓM HỌC PHẦN ĐƯỢC PHÂN CÔNG</h1>
+	<h1 class = "text-center" style="margin: 24px">
+	<?php if(isset($_GET['magv'])){ ?> CÁC NHÓM HỌC PHẦN ĐƯỢC PHÂN CÔNG</h1>
+	<?php }
+	else if(isset($_GET['masv'])){ ?>XEM ĐIỂM</h1> <?php }?>
     <div class="my-4 sort-search d-flex">     
 		<form class="col-4" action="">
 			<div class="search d-flex">
 				<input name="search" type="text" placeholder="&#160;&#160;&#160;Search here" style = "width:100%">     
-				<button type="submit" style="font-size:30px;margin-left:3px; margin-top: auto; margin-bottom:auto;"><span class="material-symbols-outlined">search</span></button>
+				<button class="icon-search" type="submit" style="background-color: #07689F; font-size:30px;margin-left:3px; margin-top: auto; margin-bottom:auto;"><span class="material-symbols-outlined">search</span></button>
 			</div>
 		</form>  
 	</div>
 	<div class="container-fluid">
 		<div class="row">
-			<div >
+			<div class="detail">
+			<?php 
+			if(isset($_GET['magv'])) { ?>
 			<table style="width:100%" class="table">
+					
 					<tr id="non-h" style="height: 50px; font-weight: 700;">
+						<th style="font-weight: 700">Stt</th>
 						<th style="font-weight: 700">Mã nhóm học phần</th>
 						<th style="font-weight: 700">Tên học phần</th>
 						<th style="font-weight: 700">Số tín chỉ</th>
 						<th style="font-weight: 700">Ngày bắt đầu</th>
 						<th style="font-weight: 700">Ngày kết thúc</th>
 					</tr>
+					<tr id="non-j" style="height: 50px; font-weight: 700;">
+						<th colspan="6" style="text-align:left">Học kì 1 năm học 2023-2024</th>
+					</tr>
 					<?php
-                    
-                    foreach ($resultSet as $data): ?>
+					$counter = 0;
+                    foreach ($resultSet as $data): $counter++; ?>
+					
 					<tr style="height: 50px">
+						<th><?php echo $counter; ?></th>
 						<th><?php echo $data['MANHOMHP']; ?></th>
 						<?php
                             // Truy vấn dữ liệu từ bảng major dựa trên idMajor của giangvien
@@ -66,8 +97,56 @@
 						<th><?php echo $data['NGAYKT'] ?></th>
 					</tr>
 					<?php endforeach; ?>
+			</table> <?php }
+			else if(isset($_GET['masv'])){?>
+				<table style="width:100%; border: 10px solid #f0f0f0" class="table">
+					<tr id="non-h" style="height: 50px; font-weight: 700;">
+						<th style="font-weight: 700">Stt</th>
+						<th style="font-weight: 700">Mã Học Phần</th>
+						<th style="font-weight: 700">Tên Học Phần</th>
+						<th style="font-weight: 700">Mã Nhóm Học Phần</th>
+						<th style="font-weight: 700">Số Tín Chỉ</th>
+						<th style="font-weight: 700">Điểm Thi</th>
+						<th style="font-weight: 700">Điểm Kiểm Tra</th>
+						<th></th>
+					</tr>
+					<?php 
+					foreach ($diemTheoHocKi as $maHocKi => $diemHocKi) { ?>
+						<tr id="non-j" style="height: 50px; font-weight: 700;">
+							<th colspan="8" style="text-align:left"><?php 
+							$HKData = $collectionHK->findOne(['MAHK' => $maHocKi]);
+							echo $HKData['TENHK'] ?></th>
+						</tr>
+						<?php
+						$counter = 0;
+						foreach ($diemHocKi as $document) {
+							$counter++ 
+							?>
+							<tr style="height: 50px">
+								<th><?php echo $counter?></th>
+								<th><?php
+								$NHP = $collectionNHP->findOne(['MANHOMHP' => $document['MANHOMHP']]); 
+								echo $NHP['MAHP']; ?>
+								</th>
+								<th><?php
+								$HPData = $collectionHP->findOne(['MAHP' => $NHP['MAHP']]);  
+								echo $HPData['TENHP']; ?></th>
+								<th><?php echo $document['MANHOMHP']; ?></th>
+								<th><?php echo $HPData['SOTINCHI']; ?></th>
+								<th><?php echo $document['DIEMKT']; ?></th>
+								<th><?php echo $document['THI'] ?></th>
+								<th>
+									<a href="#" name="update">Chỉnh sửa</a>
+								</th>
+						<?php }
+					
+
+					}
+					?></tr>
+					
 			</table>
-			<a href="quanlygiangvien.php"><button type="button" style="background-color: #6F1E51; color:#f0f0f0" class="btn btn-success">Quay lại</button></a>
+			<?php }?>
+			
 			</div>
 		</div>
 	</div>

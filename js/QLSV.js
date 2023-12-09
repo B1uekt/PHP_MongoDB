@@ -18,3 +18,14 @@ function UpdateSV(button){
 requestSVInfo.open("POST", "i4SV.php?MaSV=" + ID);
 requestSVInfo.send();
 }
+function redirectToUpdatePage(masv) {
+    // Chuyển đến trang cần thiết với thông tin cần thiết
+    window.location.href = 'detail_page.php?masv=' + masv;
+}
+function Reset(magv) {
+    var confirmed = confirm("Bạn có chắc chắn muốn reset mật khẩu không?");
+
+    if (confirmed) {
+        window.location.href = 'resetpwd.php?magv=' + magv;
+    }
+}

@@ -22,5 +22,9 @@ function redirectToUpdatePage(magv) {
     window.location.href = 'detail_page.php?magv=' + magv;
 }
 function Reset(magv){
-    window.location.href = 'resetpwd.php?magv=' + magv;
+    var confirmed = confirm("Bạn có chắc chắn muốn reset mật khẩu không?");
+
+    if (confirmed) {
+        window.location.href = 'resetpwd.php?magv=' + magv;
+    }
 }
