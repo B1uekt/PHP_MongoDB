@@ -20,6 +20,7 @@ if ($giangVienInfo) {
 
     // Kết hợp thông tin từ cả hai bảng
     $result = [
+        'MAGV' => $MaGV,
         'TENGV' => $giangVienInfo['TENGV'],
         'EMAIL' => $giangVienInfo['EMAIL'],
         'TRANGTHAI' =>$giangVienInfo['TRANGTHAI'],

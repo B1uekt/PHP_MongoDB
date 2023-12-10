@@ -6,6 +6,7 @@ function UpdateGV(button){
     if (this.readyState == 4 && this.status == 200) {
         console.log(this.response);
     const GV = JSON.parse(this.response);  
+    document.getElementById("magv").value = GV["MAGV"];
     document.getElementById("name").value = GV["TENGV"];
     document.getElementById("email").value = GV["EMAIL"];
     document.getElementById("phone").value = GV["SDT"];

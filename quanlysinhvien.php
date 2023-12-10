@@ -12,7 +12,9 @@
     $collectionSinhVien = $database->selectCollection('sinhvien');
     $collectionLop = $database->selectCollection('lop');
     $collectionNganh= $database->selectCollection('nganh');
+    $collectionMajor = $database->selectCollection('khoa');
     $resultSet = $collectionSinhVien->find();
+    $resultSet3 = $collectionLop->find();
     if(isset($_GET['search'])){
         $keyword = $_GET['search'];
         $filter = [
@@ -51,10 +53,20 @@
                 </div>
                 <div class="model-body-0">
                     <form name="Update" action="UpdateSV.php" method="post" id="form-login" enctype="multipart/form-data">
+                        <input type="hidden" name="masv" id="masv" value="">
                         <label for="name">Họ và  Tên</label><br>
                         <input class="name" type="text" id="name" name="name" value=""><br>
                         <label for="class">Lớp</label><br>
-                        <input class="name" type="text" id="class" name="class" value="" ><br>
+                        <select class="name" name="class" id="class" onchange="updateMajorandBranch()">
+                        <?php 
+
+                            foreach ($resultSet3 as $data3): ?>
+                            <option value="<?php echo $data3['TENLOP'] ?>"><?php echo $data3['TENLOP'] ?></option>
+                        <?php endforeach; ?>
+                        </select>
+                        <label for="class">Ngành</label><br>
+                        <input class="name" type="text" id="branch" name="branch" value=""><br>
+                        </select>
                         <label for="class">Khoa</label><br>
                         <input class="name" type="text" id="major" name="major" value=""><br>
                         <label for="birthday">Ngày sinh</label><br>
@@ -62,7 +74,7 @@
                         <label for="address">Địa chỉ</label><br>
                         <input class="name" type="text" id="address" name="address" value=""><br>
                         <label for="cars">Giới tính</label><br>
-                        <select class="name" name="gender" id="gernder">
+                        <select class="name" name="gender" id="gender">
                             <option value="Nam">Nam</option>
                             <option value="Nữ">Nữ</option>
                         </select><br>
@@ -72,7 +84,7 @@
                             <option value="Nghỉ học">Nghĩ Học</option>
                             <option value="Hiện diện">Hiện Diện</option>
                         </select>
-                        <input class="submit" type="submit" value="SUBMIT">
+                        <input class="submit" type="submit" value="SUBMIT" name="submit">
                     </form>
                 </div>
             </div>
@@ -211,10 +223,6 @@
                   dropdownContent.style.display = "block";
                 }
               });
-            }
-
-            function YesorNo(){
-                confirm('DO YOU WANT TO DELETE THIS PRODUCT ?')
             }
         </script>
     </body>

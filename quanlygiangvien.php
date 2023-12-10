@@ -52,6 +52,7 @@
                 </div>
                 <div class="model-body-0">
                     <form name="Update" action="UpdateGV.php" method="post" id="form-login" enctype="multipart/form-data" >
+                        <input type="hidden" name="magv" id="magv" value="">
                         <label for="name">Họ và  Tên</label><br>
                         <input class="name" type="text" id="name" name="name" value=""><br>
                         <label for="email">Email</label><br>
