@@ -1,5 +1,20 @@
 <!DOCTYPE html>
 <html>
+<?php
+    require 'vendor/autoload.php';
+ 
+    use MongoDB\Client;     
+    $mongoUri = "mongodb://localhost:27017";
+    $client = new Client($mongoUri);
+    $database = $client->selectDatabase('quanlysinhvien');
+    $collection1 = $database->selectCollection('nganh');
+    $collection2 = $database->selectCollection('giangvien');
+    $collection3 = $database->selectCollection('hocky');
+    $document1 = $collection1->find();
+    $document2 = $collection2->find();
+    $document3 = $collection3->find();
+
+?>
     <head>
         <title>Manage Product</title>
         <!--CSS link-->
@@ -14,86 +29,54 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <!--Link JS-->
+        <script src="js/ajax.js"></script>
     </head>
     <body>
-        <div class="model-0 hide" id = "addinfor">
-            <div class="model-inner-0">  
-                <div class="model-header-0 d-flex">
-                    <div class="header-form"><h3>THÊM HỌC PHẦN</h3></div>
-                    <i class="fa fa-window-close"></i>
-                </div>
-                <div class="model-body-0">
-                    <form>
-                        <label for="name">Tên học phần</label><br>
-                        <input class="name" type="text" id="name" name="name" value=""><br>
-                        <label for="email">Số tính chỉ</label><br>
-                        <input class="name" type="text" id="email" name="email" value=""><br>
-                        <label for="cars">Trạng thái</label><br>
-                        <select name="status" id="status">
-                            <option value="dong">Đóng</option>
-                            <option value="mo">Mở</option>
-                        </select>
-                        <input class="submit" type="submit" value="SUBMIT">
-                    </form>
-                </div>
-            </div>
-        </div>
         <div class="col-2 nav float-left">
             <?php include "nav.html" ?>
         </div>
         <div class="col-10" style="margin-left:16.66%">
             <h2><i class="fa fa-gear"></i>NHẬP ĐIỂM</h2>
-            <form class="form-scorce">
+            <form class="form-scorce" method="POST" enctype ="multipart/form-data" action="themketqua.php">
                 <div class="container-fluid infor-scorce d-flex">
                     <div class="col-6">
                         <h2>Thông tin chung</h2>
                         <label for="hocky">Học kỳ:</label>
                         <select name="hocky" id="hocky">
-                            <option value="1">Học kỳ I 2018-2019</option>
-                            <option value="1">Học kỳ II 2018-2019</option>
+                        <option value="">Chọn học kỳ</option>
+                        <?php foreach ($document3 as $data): ?>
+                            <option value=<?php echo $data['MAHK']; ?>><?php echo $data['TENHK']; ?></option>
+                        <?php endforeach; ?>
                         </select><br>
                         <label for="giangvien">Tên giảng viên:</label>
-                        <select name="giangvien" id="giangvien">
-                            <option value="120120">Trần Văn A</option>
-                            <option value="121121">Lê Thị B</option>
+                        <select name="giangvien" id="giangvien" onchange = "getHP(this,'MAGV','hocphan.php')">
+                        <option value="">Chọn giảng viên</option>
+                        <?php foreach ($document2 as $data): ?>
+                            <option value=<?php echo $data['MAGV']; ?>><?php echo $data['TENGV']; ?></option>
+                        <?php endforeach; ?>
                         </select><br>
                         <label for="diem">Nhập file điểm</label>
                         <input type="file" id="diem" name="diem"/>
-                        <input type="submit" name="sumit" value="Submit">
+                        <input type="submit" name="submit" value="Submit">
                     </div>
                     <div class="col-6">
                         <h2>Thông tin môn học</h2>
-                        <label for="nganh">Ngành:</label>
-                        <select name="nganh" id="nganh">
-                            <option value="cntt">Công nghệ thông tin</option>
-                            <option value="ktpm">Kỹ thuật phần mềm</option>
-                        </select><br>
                         <label for="hocphan">Học phần:</label>
-                        <select name="hocphan" id="hocphan">
-                            <option value="120120">Cơ sở dữ liệu nâng cao</option>
-                            <option value="121121">Kỹ thuật lập trình</option>
+                        <select name="hocphan" id="hocphan" onchange = "getNHP(this,'MAHP','nhomhocphan.php')">
+                            <option value="">Chọn học phần</option>
                         </select><br>
-                        <label for="hocphan">Nhóm lớp học phần:</label>
+                        <label for="hocphan">Nhóm lớp học phần</label>
                         <select name="lophp" id="lophp">
-                            <option value="nhom1">Nhóm 1</option>
-                            <option value="121121">Nhóm 2</option>
+                            <option value="">Chọn nhóm học phần</option>
                         </select><br>
                     </div>
                 </div>
             </form>
         </div>
-        <script>
-            function toggleDropdown(){
-                var dropdown = document.querySelector('.dropdown-button');
-                if (dropdown.classList.contains('show')) {
-                    dropdown.classList.remove('show');
-                } else {
-                    dropdown.classList.add('show');
-                }
-            }
-        </script>
-        <script>
-            var dropdown = document.getElementsByClassName("dropdown-btn");
+    </body>
+    <script>
+        var dropdown = document.getElementsByClassName("dropdown-btn");
             var i;
             
             for (i = 0; i < dropdown.length; i++) {
@@ -107,30 +90,5 @@
                 }
               });
             }
-
-            var modal = document.getElementById('addinfor');
-            var btn = document.getElementById('btn-addinfor');
-            var icon = document.querySelector('#addinfor i');
-            var submit = document.querySelector('#addinfor .model-body-0 .submit')
-            // Khi người dùng click vào nút, mở modal
-            btn.onclick = function () {
-                modal.style.display = 'block';
-            };
-
-            icon.onclick = function () {
-                modal.style.display = 'none';
-            };
-
-            submit.onclick = function () {
-                modal.style.display = 'none';
-            };
-
-            function OnSubmit(){
-                confirm("Do you agree to change this information?");
-            }
-            function YesorNo(){
-                confirm('DO YOU WANT TO DELETE THIS USER ?')
-            }
-        </script>
-    </body>
+    </script>
 </html>
