@@ -8,7 +8,7 @@
     $mongoUri = "mongodb://localhost:27017";
     $client = new Client($mongoUri);
 
-    $database = $client->selectDatabase('ProjectCSDL');
+    $database = $client->selectDatabase('quanlysinhvien');
     $collection1 = $database->selectCollection('hocphan');
     $collection2 = $database->selectCollection('nhomhocphan');
     $collection3 = $database->selectCollection('chitietnganh');
@@ -35,7 +35,6 @@
                     }
                 }
             }
-
         }
     }
     if(!empty($query)){
@@ -79,7 +78,7 @@
                             <option value="Active">Active</option>
                             <option value="Passive">Passive</option>
                         </select>
-                        <button class="submit" type="submit" onclick="insertData('formHocphan','themhocphan.php')">SUBMIT</button>
+                        <button class="submit" type="submit" onclick="changeData('formHocphan','themhocphan.php')">SUBMIT</button>
                     </form>
                 </div>
             </div>
@@ -141,8 +140,7 @@
                             <div class="col-2 text-center product"><p>0</p></div>
                         <?php } ?>
                         <div class="col-2 text-center order btn-de-up">
-                            <!--<button class="btn but-update">UPDATE</button>-->
-                            <a href="" onclick="YesorNo()"  class="btn but-update ">MỞ</a>
+                            <button class="btn but-update" onclick="moHocPhan('<?php echo $data['MAHP']; ?>')">MỞ</button>
                         </div>
                     </div>
                 <?php endforeach; ?>
@@ -177,7 +175,7 @@
             var modal = document.getElementById('addinfor');
             var btn = document.getElementById('btn-addinfor');
             var icon = document.querySelector('#addinfor i');
-            // Khi người dùng click vào nút, mở modal
+           
             btn.onclick = function () {
                 modal.style.display = 'block';
             };
@@ -186,12 +184,10 @@
                 modal.style.display = 'none';
             };
 
-            function OnSubmit(){
-                confirm("Do you agree to change this information?");
+            function moHocPhan(MAHP){
+                window.location.href = 'monhomhocphan.php?MAHP='+MAHP;
             }
-            function YesorNo(){
-                confirm('DO YOU WANT TO DELETE THIS USER ?')
-            }
+           
         </script>
     </body>
 </html>
