@@ -75,27 +75,23 @@
         <div class="model-0 hide" id = "addinfor">
             <div class="model-inner-0">  
                 <div class="model-header-0 d-flex">
-                    <div class="header-form"><h3>THÊM SINH VIÊN</h3></div>
+                    <div class="header-form"><h3>THÊM LỚP</h3></div>
                     <i class="fa fa-window-close"></i>
                 </div>
                 <div class="model-body-0">
-                    <form>
-                        <label for="name">Họ và Tên</label><br>
-                        <input class="name" type="text" id="name" name="name" value=""><br>
-                        <label for="email">Email</label><br>
-                        <input class="name" type="text" id="email" name="email" value=""><br>
-                        <label for="email">Số điện thoại</label><br>
-                        <input class="name" type="text" id="email" name="email" value=""><br>
-                        <label for="email">Ngày sinh</label><br>
-                        <input class ="name" type="date" id="birthday" name="birthday" value="2018-07-22"/>
-                        <label for="address">Địa chỉ</label><br>
-                        <input class ="name" type="text" id="address" name="address" value=""/>
-                        <label for="cars">Giới tính</label><br>
-                        <select name="gender" id="gernder">
-                            <option value="Nam">Nam</option>
-                            <option value="Nữ">Nữ</option>
-                        </select>
-                        <input class="submit" type="submit" value="SUBMIT">
+                    <form name="add" action="AddClass.php" method="post" id="form-login" enctype="multipart/form-data">
+                        <label for="name">Tên Lớp</label><br>
+                        <input class="name" type="text" id="nameClass" name="nameClass" value=""><br>
+
+                        <label for="name">Tên Ngành</label><br>
+                        <input class="name" type="text" id="nameBranch" name="nameBranch" value=""><br>
+
+                        <label for="name">Tên Cố Vấn</label><br>
+                        <input class="name" type="text" id="nameGV" name="nameGV" value=""><br>
+
+                        <label for="name">Niên khóa</label><br>
+                        <input class="name" type="text" id="NK" name="NK" value=""><br>
+                        <input name ="submit" class="submit" type="submit" value="SUBMIT">
                     </form>
                 </div>
             </div>

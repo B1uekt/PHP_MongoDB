@@ -10,13 +10,28 @@
     
     $database = $client->selectDatabase('ProjectCSDL'); 
 	$collectionNHP = $database->selectCollection('nhomhocphan');
+	$collectionSinhVien = $database->selectCollection('sinhvien');
 	$collectionHP = $database->selectCollection('hocphan');
 	$collectionKQ = $database->selectCollection('ketqua');
 	$collectionHK = $database->selectCollection('hocky');
 	if(isset($_GET['magv'])) {
 		$MaGV = $_GET['magv'];
-		$resultSet = $collectionNHP->find(['MAGV' => $MaGV]);
+		if(isset($_GET['search'])){
+			$keyword = $_GET['search'];
+			$resultSet1 = $collectionHP->findOne(['TENHP' => new MongoDB\BSON\Regex($keyword)]);
+			$filter = [
+				'$and' => [
+					['MAHP' => $resultSet1['MAHP']],
+					['MAGV' => $MaGV],
+				]
+			];
+			$resultSet = $collectionNHP->find($filter);
+		}
+		else {
+			$resultSet = $collectionNHP->find(['MAGV' => $MaGV]);
+		}
 	}
+	
 	else if(isset($_GET['masv'])) {
 		$MaSV = $_GET['masv'];
 		$resultSet = $collectionKQ->find(['MASV' => $MaSV]);
@@ -52,16 +67,27 @@
 <body>
 	<h1 class = "text-center" style="margin: 24px">
 	<?php if(isset($_GET['magv'])){ ?> CÁC NHÓM HỌC PHẦN ĐƯỢC PHÂN CÔNG</h1>
+		<div class="my-4 sort-search d-flex">     
+			<form class="col-4" action="">
+				<div class="search d-flex">
+					<input type="hidden" name="magv" id="masv" value="<?php echo $_GET['magv']?>">
+					<input name="search" type="text" placeholder="&#160;&#160;&#160;Search here" style = "width:100%">     
+					<button class="icon-search" type="submit" style="background-color: #07689F; font-size:30px;margin-left:3px; margin-top: auto; margin-bottom:auto;"><span class="material-symbols-outlined">search</span></button>
+				</div>
+			</form>  
+		</div>
 	<?php }
-	else if(isset($_GET['masv'])){ ?>XEM ĐIỂM</h1> <?php }?>
-    <div class="my-4 sort-search d-flex">     
-		<form class="col-4" action="">
-			<div class="search d-flex">
-				<input name="search" type="text" placeholder="&#160;&#160;&#160;Search here" style = "width:100%">     
-				<button class="icon-search" type="submit" style="background-color: #07689F; font-size:30px;margin-left:3px; margin-top: auto; margin-bottom:auto;"><span class="material-symbols-outlined">search</span></button>
-			</div>
-		</form>  
-	</div>
+	else if(isset($_GET['masv'])){ ?>XEM ĐIỂM</h1> 
+	<div style="text-align:center" class="my-4 sort-search d-flex">
+		<div><p>MÃ SINH VIÊN: <?php echo $_GET['masv']; ?></p></div>
+		
+		
+		
+		<div><p>TÊN SINH VIÊN: <?php $SV = $collectionSinhVien->findOne(['MASV' => $_GET['masv']]); 
+		echo $SV['HOTEN']?></p></div>
+	</div>	
+	<?php }?>
+    
 	<div class="container-fluid">
 		<div class="row">
 			<div class="detail">
@@ -76,9 +102,6 @@
 						<th style="font-weight: 700">Số tín chỉ</th>
 						<th style="font-weight: 700">Ngày bắt đầu</th>
 						<th style="font-weight: 700">Ngày kết thúc</th>
-					</tr>
-					<tr id="non-j" style="height: 50px; font-weight: 700;">
-						<th colspan="6" style="text-align:left">Học kì 1 năm học 2023-2024</th>
 					</tr>
 					<?php
 					$counter = 0;
@@ -133,10 +156,10 @@
 								echo $HPData['TENHP']; ?></th>
 								<th><?php echo $document['MANHOMHP']; ?></th>
 								<th><?php echo $HPData['SOTINCHI']; ?></th>
-								<th><?php echo $document['DIEMKT']; ?></th>
-								<th><?php echo $document['THI'] ?></th>
+								<th id="diemKTHeader"><?php echo $document['DIEMKT']; ?></th>
+								<th id="thiHeader"><?php echo $document['THI'] ?></th>
 								<th>
-									<a href="#" name="update">Chỉnh sửa</a>
+									<a href="#" name="update" onclick="editRow('<?php echo $_GET['masv']; ?>', '<?php echo $document['MANHOMHP']; ?>', '<?php echo $document['DIEMKT']; ?>', '<?php echo $document['THI']; ?>')">Chỉnh sửa</a>
 								</th>
 						<?php }
 					
@@ -151,4 +174,32 @@
 		</div>
 	</div>
 </body>
+<script>
+    function editRow(rowId, maNHP, diemKT, thi) {
+		var newDiemKT = parseFloat(prompt("Nhập điểm kiểm tra mới:", diemKT));
+		var newThi = parseFloat(prompt("Nhập điểm thi mới:", thi));
+
+		if (!isNaN(newDiemKT) && !isNaN(newThi)) {
+			var xhr = new XMLHttpRequest();
+			xhr.open("POST", "updateData.php", true);
+			xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			xhr.onreadystatechange = function () {
+				if (xhr.readyState == 4) {
+					if (xhr.status == 200) {
+						console.log(xhr.responseText); // Xử lý phản hồi thành công
+						document.getElementById("diemKTHeader").innerText = newDiemKT;
+                    	document.getElementById("thiHeader").innerText = newThi;
+					} else {
+						console.error("Lỗi: " + xhr.status); // Xử lý lỗi
+					}
+				}
+			};
+			xhr.send("rowId=" + encodeURIComponent(rowId) + "&maNHP=" + encodeURIComponent(maNHP) +
+				"&newDiemKT=" + encodeURIComponent(newDiemKT) + "&newThi=" + encodeURIComponent(newThi));
+		} else {
+			console.error("Dữ liệu nhập không hợp lệ. Vui lòng nhập giá trị số hợp lệ.");
+		}
+	}
+
+</script>
 </html>

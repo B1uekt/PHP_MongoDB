@@ -1,20 +1,20 @@
 <?php
-    require 'vendor/autoload.php';
+  require 'vendor/autoload.php';
  
-    use MongoDB\Client;     
-    $mongoUri = "mongodb://localhost:27017";
-    $client = new Client($mongoUri);
-    $database = $client->selectDatabase('quanlysinhvien');
-    $collection = $database->selectCollection('hocphan');
+  use MongoDB\Client;     
+  $mongoUri = "mongodb://localhost:27017";
+  $client = new Client($mongoUri);
+  $database = $client->selectDatabase('quanlysinhvien');
+  $collection = $database->selectCollection('hocphan');
 
-    $count = $collection->countDocuments([]);
-    $count = $count + 1;
-    $length = strlen(strval($count));
+  $count = $collection->countDocuments([]);
+  $count = $count + 1;
+  $length = strlen(strval($count));
 
-    $TENHP = $_POST['name'];
-    $SOTINHCHI = $_POST['amount'];
-    $TRANGTHAI = $_POST['status'];
-    $MAHP = "HP";
+  $TENHP = $_POST['name'];
+  $SOTINHCHI = $_POST['amount'];
+  $TRANGTHAI = $_POST['status'];
+  $MAHP = "HP";
     switch ($length) {
         case 1:
           $MAHP .= "00".$count;
