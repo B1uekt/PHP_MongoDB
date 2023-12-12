@@ -9,12 +9,13 @@
     
     
     $database = $client->selectDatabase('ProjectCSDL'); 
-    $collectionSinhVien = $database->selectCollection('sinhvien');
     $collectionLop = $database->selectCollection('lop');
     $collectionNganh = $database->selectCollection('nganh');
     $collectionKhoa = $database->selectCollection('khoa');
+    $collectionNienkhoa = $database->selectCollection('nienkhoa');
     $collectionGiangVien = $database->selectCollection('giangvien');
     $resultSet = $collectionLop->find();
+    $resultSet1 = $collectionNganh->find();
 ?>
 <!DOCTYPE html>
 <html>
@@ -31,7 +32,7 @@
         <!--Icon link-->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-        
+        <script src="js/QLClass.js"></script>
     </head>
     <body>
         <div class="model-0 hide">
@@ -41,33 +42,40 @@
                     <i class="fa fa-window-close"></i>
                 </div>
                 <div class="model-body-0">
-                    <form>
-                        <label for="name">Họ và  Tên</label><br>
-                        <input class="name" type="text" id="name" name="name" value=""><br>
-                        <label for="email">Email</label><br>
-                        <input class="name" type="text" id="email" name="email" value=""><br>
-                        <label for="email">Số điện thoại</label><br>
-                        <input class="name" type="text" id="email" name="email" value=""><br>
-                        <label for="birthday">Ngày sinh</label><br>
-                        <input class ="name" type="date" id="birthday" name="birthday" value="2018-07-22"/>
-                        <label for="address">Địa chỉ</label><br>
-                        <input class="name" type="text" id="address" name="address" value=""><br>
-                        <label for="cars">Giới tính</label><br>
-                        <select class="name" name="gender" id="gernder">
-                            <option value="Nam">Nam</option>
-                            <option value="Nữ">Nữ</option>
-                        </select><br>
-                        <label for="cars">Trạng thái</label><br>
-                        <select class="name" name="status" id="status">
-                            <option value="hoan">Hoãn</option>
-                            <option value="nghi">Nghĩ Học</option>\
-                            <option value="hiendien">Hiện Diện</option>
+                    <form name="Update" action="UpdateClass.php" method="post" id="form-login" enctype="multipart/form-data">
+                        <input type="hidden" name="malop" id="malop" value="">
+                        <label for="name">Tên Lớp</label><br>
+                        <input class="name" type="text" id="nameClass" name="nameClass" value=""><br>
+
+                        <label for="branch">Tên Ngành</label><br>
+                        <select class="name" name="branch" id="branch">
+                            <?php 
+                            $resultSet4 = $collectionNganh->find();
+                            foreach ($resultSet4 as $data4): ?>
+                                <option value="<?php echo $data4['TENNGANH'] ?>"><?php echo $data4['TENNGANH'] ?></option>
+                            <?php endforeach; ?>
                         </select>
-                        <div class="id-number my-3">
-                            <label for="id">MSSV</label><br>
-                            <input type="text" name="id" id="id" disabled> 
-                        </div>
-                        <input class="submit" type="submit" value="SUBMIT">
+
+                        <label for="nameCV">Tên Cố Vấn</label><br>
+                        <select class="name" name="nameCV" id="nameCV">
+                            <?php 
+                            $resultSet5 = $collectionGiangVien->find();
+                            foreach ($resultSet5 as $data5): ?>
+                                <option value="<?php echo $data5['TENGV'] ?>"><?php echo $data5['TENGV'] ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                        
+                        <label for="name">Niên khóa</label><br>
+                        <select class="name" name="nienkhoa" id="nienkhoa">
+                            <?php 
+                            $resultSet6 = $collectionNienkhoa->find();
+                            foreach ($resultSet6 as $data6): ?>
+                                <option value="<?php echo $data6['TENNIENKHOA'] ?>"><?php echo $data6['TENNIENKHOA'] ?></option>
+                            <?php endforeach; ?>
+                        </select>
+
+                            </br>
+                        <input name="submit" class="submit" type="submit" value="SUBMIT">
                     </form>
                 </div>
             </div>
@@ -84,13 +92,32 @@
                         <input class="name" type="text" id="nameClass" name="nameClass" value=""><br>
 
                         <label for="name">Tên Ngành</label><br>
-                        <input class="name" type="text" id="nameBranch" name="nameBranch" value=""><br>
+                        <select class="name" name="branch" id="branch">
+                            <?php 
+                            
+                            foreach ($resultSet1 as $data1): ?>
+                                <option value="<?php echo $data1['TENNGANH'] ?>"><?php echo $data1['TENNGANH'] ?></option>
+                            <?php endforeach; ?>
+                        </select>
 
                         <label for="name">Tên Cố Vấn</label><br>
-                        <input class="name" type="text" id="nameGV" name="nameGV" value=""><br>
+                        <select class="name" name="nameCV" id="nameCV">
+                            <?php 
+                            $resultSet2 = $collectionGiangVien->find();
+                            foreach ($resultSet2 as $data2): ?>
+                                <option value="<?php echo $data2['TENGV'] ?>"><?php echo $data2['TENGV'] ?></option>
+                            <?php endforeach; ?>
+                        </select>
 
                         <label for="name">Niên khóa</label><br>
-                        <input class="name" type="text" id="NK" name="NK" value=""><br>
+                        <select class="name" name="nienkhoa" id="nienkhoa">
+                            <?php 
+                            $resultSet3 = $collectionNienkhoa->find();
+                            foreach ($resultSet3 as $data3): ?>
+                                <option value="<?php echo $data3['TENNIENKHOA'] ?>"><?php echo $data3['TENNIENKHOA'] ?></option>
+                            <?php endforeach; ?>
+                        </select>
+
                         <input name ="submit" class="submit" type="submit" value="SUBMIT">
                     </form>
                 </div>
@@ -138,7 +165,7 @@
                             <div class="col-2 text-center product"><?php echo $Khoa['TENKHOA']?></div>
                             <div class="col-2 text-center product"><?php echo $GiangVien['TENGV']; ?></div>
                             <div class="col-2 text-center product btn-de-up">
-                                <button class="btn but-update">UPDATE</button>
+                                <button onclick="UpdateClass(this);" name="update" value= "<?php echo $data['MALOP'] ?>" class="btn but-update">UPDATE</button>
                             </div>
                         </div>
                     <?php endforeach; ?>

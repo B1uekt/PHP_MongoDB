@@ -14,11 +14,11 @@ $MaGV = $_GET['MaGV'];
 
 $giangVienInfo = $collectionGiangVien->findOne(['MAGV' => $MaGV]);
 if ($giangVienInfo) {
-    // Lấy thông tin từ bảng major
+
     $collectionMajor = $database->selectCollection('khoa');
     $majorInfo = $collectionMajor->findOne(['MAKHOA' => $giangVienInfo['MAKHOA']]);
 
-    // Kết hợp thông tin từ cả hai bảng
+
     $result = [
         'MAGV' => $MaGV,
         'TENGV' => $giangVienInfo['TENGV'],
@@ -26,7 +26,7 @@ if ($giangVienInfo) {
         'TRANGTHAI' =>$giangVienInfo['TRANGTHAI'],
         'SDT' => $giangVienInfo['SDT'],
         'MajorName' => $majorInfo['TENKHOA'],
-        // Thêm các trường khác cần lấy từ các bảng khác nếu cần
+
     ];
 
     echo json_encode($result);
