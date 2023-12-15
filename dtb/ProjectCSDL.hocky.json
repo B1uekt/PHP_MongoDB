@@ -1,0 +1,24 @@
+[{
+  "_id": {
+    "$oid": "65655c915b57f16c87d3d65f"
+  },
+  "MAHK": "HK001",
+  "TENHK": "Học kỳ 1 2022-2023",
+  "GHICHU": "Ghi chú về học kỳ 1"
+},
+{
+  "_id": {
+    "$oid": "65655c915b57f16c87d3d660"
+  },
+  "MAHK": "HK002",
+  "TENHK": "Học kỳ 2 2023-2024",
+  "GHICHU": "Ghi chú về học kỳ 2"
+},
+{
+  "_id": {
+    "$oid": "65655c915b57f16c87d3d661"
+  },
+  "MAHK": "HK003",
+  "TENHK": "Học kỳ 1 2024-2025",
+  "GHICHU": "Ghi chú về học kỳ 3"
+}]

@@ -1,19 +1,9 @@
 <?php 
-    require 'vendor/autoload.php';
+    require 'ConnectMongoDB.php';
 
-    use MongoDB\Client;
-    
-    $mongoUri = "mongodb://localhost:27017";
-    
-    $client = new Client($mongoUri);
-    
-    
-    $database = $client->selectDatabase('ProjectCSDL'); 
-    $collectionGiangVien = $database->selectCollection('giangvien');
-    $collectionMajor = $database->selectCollection('khoa');
     $resultSet = $collectionGiangVien->find();
-    $resultSet1 = $collectionMajor->find();
-    $resultSet2 = $collectionMajor->find();
+    $resultSet1 = $collectionKhoa->find();
+    $resultSet2 = $collectionKhoa->find();
     if(isset($_GET['search'])){
         $keyword = $_GET['search'];
         $filter = [
@@ -147,7 +137,7 @@
 
                             <?php
                             // Truy vấn dữ liệu từ bảng major dựa trên idMajor của giangvien
-                            $majorData = $collectionMajor->findOne(['MAKHOA' => $data['MAKHOA']]);
+                            $majorData = $collectionKhoa->findOne(['MAKHOA' => $data['MAKHOA']]);
                             ?>
 
                             <div class="col-2 text-center product"><p><?php echo $majorData['TENKHOA']; ?></p></div>

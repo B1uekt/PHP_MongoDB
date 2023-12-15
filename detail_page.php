@@ -1,19 +1,7 @@
 <?php 
-    require 'vendor/autoload.php';
+    require 'ConnectMongoDB.php';
 
-    use MongoDB\Client;
     
-    $mongoUri = "mongodb://localhost:27017";
-    
-    $client = new Client($mongoUri);
-    
-    
-    $database = $client->selectDatabase('ProjectCSDL'); 
-	$collectionNHP = $database->selectCollection('nhomhocphan');
-	$collectionSinhVien = $database->selectCollection('sinhvien');
-	$collectionHP = $database->selectCollection('hocphan');
-	$collectionKQ = $database->selectCollection('ketqua');
-	$collectionHK = $database->selectCollection('hocky');
 	if(isset($_GET['magv'])) {
 		$MaGV = $_GET['magv'];
 		if(isset($_GET['search'])){
@@ -116,8 +104,16 @@
                         ?>
 						<th><?php echo $HPData['TENHP']; ?></th>
 						<th><?php echo $HPData['SOTINCHI']; ?></th>
-						<th><?php echo $data['NGAYBD']; ?></th>
-						<th><?php echo $data['NGAYKT'] ?></th>
+						
+						<th><?php 
+						$starDate = $data['NGAYBD']->toDateTime(); 
+						$starDate = $starDate->format('d-m-Y');
+						echo $starDate; ?>
+						</th>
+						<th><?php 
+						$endDate = $data['NGAYKT']->toDateTime(); 
+						$endDate = $endDate->format('d-m-Y');
+						echo $endDate ?></th>
 					</tr>
 					<?php endforeach; ?>
 			</table> <?php }

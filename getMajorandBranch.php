@@ -1,14 +1,6 @@
 <?php
-require 'vendor/autoload.php';
+require 'ConnectMongoDB.php';
 
-use MongoDB\Client;
-
-$mongoUri = "mongodb://localhost:27017";
-
-$client = new Client($mongoUri);
-$database = $client->selectDatabase('ProjectCSDL'); 
-$collectionLop = $database->selectCollection('lop');
-$collectionNganh= $database->selectCollection('nganh');
 $collectionMajor = $database->selectCollection('khoa');
 
 $selectedClass = isset($_POST['selectedClass']) ? $_POST['selectedClass'] : '';

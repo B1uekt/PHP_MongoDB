@@ -1,0 +1,70 @@
+[{
+  "_id": {
+    "$oid": "65643bff5a24a1415bedb42b"
+  },
+  "MAGV": "GV001",
+  "TENGV": "Nguyễn Văn A",
+  "NGAYSINH": "1980-01-15",
+  "GIOITINH": "Nam",
+  "SDT": "01234567890",
+  "EMAIL": "nguyenvangv@email.com",
+  "MATKHAU": "password123",
+  "MAKHOA": "KH001",
+  "TRANGTHAI": "Hiện diện"
+},
+{
+  "_id": {
+    "$oid": "6565577b5b57f16c87d3d629"
+  },
+  "MAGV": "GV002",
+  "TENGV": "Lê Thị B",
+  "NGAYSINH": "1981-05-15",
+  "GIOITINH": "Nữ",
+  "SDT": "01234567892",
+  "EMAIL": "lethib@email.com",
+  "MATKHAU": "password123",
+  "MAKHOA": "KH001",
+  "TRANGTHAI": "Ngừng công tác"
+},
+{
+  "_id": {
+    "$oid": "6565577b5b57f16c87d3d62a"
+  },
+  "MAGV": "GV003",
+  "TENGV": "Trần Văn C",
+  "NGAYSINH": "1991-06-10",
+  "GIOITINH": "Nam",
+  "SDT": "01234567893",
+  "EMAIL": "nguyenvanc@email.com",
+  "MATKHAU": "password123",
+  "MAKHOA": "KH002",
+  "TRANGTHAI": "Hiện diện"
+},
+{
+  "_id": {
+    "$oid": "6565577b5b57f16c87d3d62b"
+  },
+  "MAGV": "GV004",
+  "TENGV": "Nguyễn Thị Ngọc D",
+  "NGAYSINH": "1991-07-10",
+  "GIOITINH": "Nữ",
+  "SDT": "01234567894",
+  "EMAIL": "nguyenthingocd@email.com",
+  "MATKHAU": "password123",
+  "MAKHOA": "KH003",
+  "TRANGTHAI": "Hiện diện"
+},
+{
+  "_id": {
+    "$oid": "656822fceb6c05f310013358"
+  },
+  "MAGV": "GV005",
+  "TENGV": "Nguyễn Khánh Thi",
+  "NGAYSINH": "2003-02-11",
+  "GIOITINH": "Nữ",
+  "SDT": "0939514756",
+  "EMAIL": "khanhthi0211@gmail.com",
+  "MATKHAU": "password123",
+  "MAKHOA": "KH001",
+  "TRANGTHAI": "Hiện diện"
+}]

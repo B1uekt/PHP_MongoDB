@@ -1,27 +1,18 @@
 <?php
-require 'vendor/autoload.php';
-
-use MongoDB\Client;
-
-$mongoUri = "mongodb://localhost:27017";
-
-$client = new Client($mongoUri);
-
-
-$database = $client->selectDatabase('ProjectCSDL'); 
+require 'ConnectMongoDB.php';
+ 
 $collection = $database->selectCollection('giangvien');
 $collectionMajor = $database->selectCollection('khoa');
 $count = $collection->countDocuments();
 
 
 function generateIDProductCode() {
-    global $count; // Sử dụng biến toàn cục để truy cập $count
+    global $count; 
     $result = 'GV00' . $count+1 ;
     
-    return $result; // Trả về mã đơn hàng ngẫu nhiên
+    return $result; 
 }
 if (isset($_POST['submit'])) {
-    // Get input values
     $GVID = generateIDProductCode();
     $GVname = $_POST['name'];
     $GVemail = $_POST['email'];
@@ -41,10 +32,10 @@ if (isset($_POST['submit'])) {
         'MAKHOA' => $majorData['MAKHOA'],
         'TRANGTHAI' => 'Hiện diện',
     ];
-    // Chèn một tài liệu mới vào collection
+
     $collection->insertOne($data);
 
-    header("Location: quanlygiangvien.php"); // Thay đổi index.php thành trang bạn muốn chuyển hướng sau khi chèn dữ liệu
+    header("Location: quanlygiangvien.php"); 
     exit();
 }
 ?>

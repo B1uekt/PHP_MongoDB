@@ -1,17 +1,5 @@
 <?php 
-require 'vendor/autoload.php';
-
-use MongoDB\Client;
-    
-$mongoUri = "mongodb://localhost:27017";
-    
-$client = new Client($mongoUri);
-    
-$database = $client->selectDatabase('ProjectCSDL'); 
-$collectionLop = $database->selectCollection('lop');
-$collectionNganh = $database->selectCollection('nganh');
-$collectionNienkhoa = $database->selectCollection('nienkhoa');
-$collectionGiangVien = $database->selectCollection('giangvien');
+require 'ConnectMongoDB.php';
 
 $MaClass = $_GET['MaClass'];
 

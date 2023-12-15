@@ -1,0 +1,32 @@
+[{
+  "_id": {
+    "$oid": "6564381f5a24a1415bedb426"
+  },
+  "MANK": "K001",
+  "TENNIENKHOA": "2021-2026",
+  "GHICHU": "Ghi chú cho niên khóa 1"
+},
+{
+  "_id": {
+    "$oid": "656551555b57f16c87d3d5e9"
+  },
+  "MANK": "K002",
+  "TENNIENKHOA": "2022-2027",
+  "GHICHU": "Ghi chú cho niên khóa 2"
+},
+{
+  "_id": {
+    "$oid": "656551555b57f16c87d3d5ea"
+  },
+  "MANK": "K003",
+  "TENNIENKHOA": "2023-2028",
+  "GHICHU": "Ghi chú cho niên khóa 3"
+},
+{
+  "_id": {
+    "$oid": "656551555b57f16c87d3d5eb"
+  },
+  "MANK": "K004",
+  "TENNIENKHOA": "2024-2029",
+  "GHICHU": "Ghi chú cho niên khóa 4"
+}]

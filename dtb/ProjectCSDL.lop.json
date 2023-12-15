@@ -1,0 +1,50 @@
+[{
+  "_id": {
+    "$oid": "6564418b5a24a1415bedb432"
+  },
+  "MALOP": "L001",
+  "TENLOP": "Lớp DCT121C4",
+  "MANGANH": "A001",
+  "COVAN": "GV001",
+  "MANK": "K001"
+},
+{
+  "_id": {
+    "$oid": "65655db15b57f16c87d3d667"
+  },
+  "MALOP": "L002",
+  "TENLOP": "Lớp DCT121A4",
+  "MANGANH": "A002",
+  "COVAN": "GV002",
+  "MANK": "K001"
+},
+{
+  "_id": {
+    "$oid": "65655db15b57f16c87d3d668"
+  },
+  "MALOP": "L003",
+  "TENLOP": "Lớp DCT121D4",
+  "MANGANH": "A003",
+  "COVAN": "GV003",
+  "MANK": "K002"
+},
+{
+  "_id": {
+    "$oid": "65655db15b57f16c87d3d669"
+  },
+  "MALOP": "L004",
+  "TENLOP": "Lớp DCT121B4",
+  "MANGANH": "A004",
+  "COVAN": "GV004",
+  "MANK": "K001"
+},
+{
+  "_id": {
+    "$oid": "657874f47088c0bc6e047976"
+  },
+  "MALOP": "L005",
+  "TENLOP": "Lớp DCT121E4",
+  "MANGANH": "A002",
+  "COVAN": "GV005",
+  "MANK": null
+}]

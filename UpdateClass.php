@@ -1,18 +1,6 @@
 <?php 
-    require 'vendor/autoload.php';
+    require 'ConnectMongoDB.php';
 
-    use MongoDB\Client;
-    
-    $mongoUri = "mongodb://localhost:27017";
-    
-    $client = new Client($mongoUri);
-    
-    
-    $database = $client->selectDatabase('ProjectCSDL'); 
-    $collectionLop = $database->selectCollection('lop');
-    $collectionNganh = $database->selectCollection('nganh');
-    $collectionNienkhoa = $database->selectCollection('nienkhoa');
-    $collectionGiangVien = $database->selectCollection('giangvien');
     if (isset($_POST['submit'])) {
         $ClassID = $_POST['malop'];
         $nameClass = $_POST['nameClass'];

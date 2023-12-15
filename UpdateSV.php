@@ -1,15 +1,6 @@
 <?php 
-    require 'vendor/autoload.php';
+    require 'ConnectMongoDB.php';
 
-    use MongoDB\Client;
-    
-    $mongoUri = "mongodb://localhost:27017";
-    
-    $client = new Client($mongoUri);
-    $database = $client->selectDatabase('ProjectCSDL'); 
-    $collectionSinhVien = $database->selectCollection('sinhvien');
-    $collectionLop = $database->selectCollection('lop');
-    $collectionNganh= $database->selectCollection('nganh');
     if (isset($_POST['submit'])) {
         $SVID = $_POST['masv'];
         var_dump($SVID);

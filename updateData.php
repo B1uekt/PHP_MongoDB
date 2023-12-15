@@ -1,14 +1,5 @@
 <?php
-require 'vendor/autoload.php';
-
-use MongoDB\Client;
-
-$mongoUri = "mongodb://localhost:27017";
-
-$client = new Client($mongoUri);
-
-
-$database = $client->selectDatabase('ProjectCSDL'); 
+require 'ConnectMongoDB.php';
 $collection = $database->selectCollection('ketqua');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {

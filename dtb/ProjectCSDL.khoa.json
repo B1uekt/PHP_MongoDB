@@ -1,0 +1,32 @@
+[{
+  "_id": {
+    "$oid": "656438e25a24a1415bedb427"
+  },
+  "MAKHOA": "KH001",
+  "TENKHOA": "Công nghệ thông tin",
+  "SODIENTHOAI": "01234567890"
+},
+{
+  "_id": {
+    "$oid": "6565527a5b57f16c87d3d5f3"
+  },
+  "MAKHOA": "KH002",
+  "TENKHOA": "Tài chính - Marketing",
+  "SODIENTHOAI": "01234567892"
+},
+{
+  "_id": {
+    "$oid": "6565527a5b57f16c87d3d5f4"
+  },
+  "MAKHOA": "KH003",
+  "TENKHOA": "Luật",
+  "SODIENTHOAI": "01234567893"
+},
+{
+  "_id": {
+    "$oid": "6565527a5b57f16c87d3d5f5"
+  },
+  "MAKHOA": "KH004",
+  "TENKHOA": "Tâm lý học",
+  "SODIENTHOAI": "01234567894"
+}]

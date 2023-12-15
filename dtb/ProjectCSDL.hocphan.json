@@ -1,0 +1,36 @@
+[{
+  "_id": {
+    "$oid": "656555055b57f16c87d3d60b"
+  },
+  "MAHP": "HP001",
+  "TENHP": "Triết học Mác-Lênin",
+  "SOTINCHI": 2,
+  "TRANGTHAI": "Active"
+},
+{
+  "_id": {
+    "$oid": "656555055b57f16c87d3d60c"
+  },
+  "MAHP": "HP002",
+  "TENHP": "Cơ sở dữ liệu nâng cao",
+  "SOTINCHI": 4,
+  "TRANGTHAI": "Active"
+},
+{
+  "_id": {
+    "$oid": "656555055b57f16c87d3d60d"
+  },
+  "MAHP": "HP003",
+  "TENHP": "Quốc phòng an ninh I",
+  "SOTINCHI": 2,
+  "TRANGTHAI": "Active"
+},
+{
+  "_id": {
+    "$oid": "656555055b57f16c87d3d60e"
+  },
+  "MAHP": "HP004",
+  "TENHP": "Cơ sở lập trình",
+  "SOTINCHI": 3,
+  "TRANGTHAI": "Active"
+}]

@@ -1,0 +1,78 @@
+[{
+  "_id": {
+    "$oid": "656437795a24a1415bedb425"
+  },
+  "MASV": "ABC123",
+  "HOTEN": "Nguyễn Văn A",
+  "GIOITINH": "Nam",
+  "NGAYSINH": "1990-05-15",
+  "DIACHI": "123 Đường ABC, Quận XYZ, TP HCM",
+  "MATKHAU": "password123",
+  "TRANGTHAI": "Hiện diện",
+  "MALOP": "L001"
+},
+{
+  "_id": {
+    "$oid": "65655e5c5b57f16c87d3d66f"
+  },
+  "MASV": "ABC223",
+  "HOTEN": "Nguyễn Văn B",
+  "GIOITINH": "Nam",
+  "NGAYSINH": "1990-05-15",
+  "DIACHI": "123 Đường ABC, Quận XYZ, TP HCM",
+  "MATKHAU": "password123",
+  "TRANGTHAI": "Hiện diện",
+  "MALOP": "L002"
+},
+{
+  "_id": {
+    "$oid": "65655e5c5b57f16c87d3d670"
+  },
+  "MASV": "ABC323",
+  "HOTEN": "Trần Thị C",
+  "GIOITINH": "Nữ",
+  "NGAYSINH": "1990-05-15",
+  "DIACHI": "123 Đường ABC, Quận XYZ, TP HCM",
+  "MATKHAU": "password123",
+  "TRANGTHAI": "Hoãn",
+  "MALOP": "L003"
+},
+{
+  "_id": {
+    "$oid": "65655e5c5b57f16c87d3d671"
+  },
+  "MASV": "ABC423",
+  "HOTEN": "Trương Ngọc D",
+  "GIOITINH": "Nữ",
+  "NGAYSINH": "1990-05-15",
+  "DIACHI": "123 Đường ABC, Quận XYZ, TP HCM",
+  "MATKHAU": "password123",
+  "TRANGTHAI": "Nghỉ học",
+  "MALOP": "L004"
+},
+{
+  "_id": {
+    "$oid": "656cad06a3f070c9260b1823"
+  },
+  "MASV": "ABC123",
+  "HOTEN": "Nguyễn Khánh Thi",
+  "GIOITINH": "Nữ",
+  "NGAYSINH": "2003-11-02",
+  "DIACHI": "123 Đường ABC, Quận XYZ, TP HCM",
+  "MATKHAU": "password123",
+  "TRANGTHAI": "Hiện diện",
+  "MALOP": "L001"
+},
+{
+  "_id": {
+    "$oid": "657353e9d509e3ff1703216b"
+  },
+  "MASV": "SV231003",
+  "HOTEN": "Qui Nguyen",
+  "GIOITINH": "Nam",
+  "NGAYSINH": "2018-07-22",
+  "DIACHI": "abC",
+  "MATKHAU": "password123",
+  "TRANGTHAI": "Hiện diện",
+  "MALOP": "L001"
+}]

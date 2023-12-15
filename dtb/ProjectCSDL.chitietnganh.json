@@ -1,0 +1,80 @@
+[{
+  "_id": {
+    "$oid": "6565560f5b57f16c87d3d618"
+  },
+  "MANGANH": "A001",
+  "MAHP": "HP003",
+  "GHI CHU": "Ghi chú cho ngành A001"
+},
+{
+  "_id": {
+    "$oid": "6565560f5b57f16c87d3d619"
+  },
+  "MANGANH": "A001",
+  "MAHP": "HP002",
+  "GHI CHU": "Ghi chú cho ngành A001"
+},
+{
+  "_id": {
+    "$oid": "6565560f5b57f16c87d3d61a"
+  },
+  "MANGANH": "A004",
+  "MAHP": "HP002",
+  "GHI CHU": "Ghi chú cho ngành A004"
+},
+{
+  "_id": {
+    "$oid": "6565560f5b57f16c87d3d61b"
+  },
+  "MANGANH": "A004",
+  "MAHP": "HP003",
+  "GHI CHU": "Ghi chú cho ngành A004"
+},
+{
+  "_id": {
+    "$oid": "6565560f5b57f16c87d3d61c"
+  },
+  "MANGANH": "A002",
+  "MAHP": "HP003",
+  "GHI CHU": "Ghi chú cho ngành A002"
+},
+{
+  "_id": {
+    "$oid": "6565560f5b57f16c87d3d61d"
+  },
+  "MANGANH": "A001",
+  "MAHP": "HP004",
+  "GHI CHU": "Ghi chú cho ngành A001"
+},
+{
+  "_id": {
+    "$oid": "6565560f5b57f16c87d3d61e"
+  },
+  "MANGANH": "A002",
+  "MAHP": "HP002",
+  "GHI CHU": "Ghi chú cho ngành A002"
+},
+{
+  "_id": {
+    "$oid": "6565560f5b57f16c87d3d61f"
+  },
+  "MANGANH": "A003",
+  "MAHP": "HP002",
+  "GHI CHU": "Ghi chú cho ngành A003"
+},
+{
+  "_id": {
+    "$oid": "6565560f5b57f16c87d3d620"
+  },
+  "MANGANH": "A003",
+  "MAHP": "HP003",
+  "GHI CHU": "Ghi chú cho ngành A003"
+},
+{
+  "_id": {
+    "$oid": "6565560f5b57f16c87d3d621"
+  },
+  "MANGANH": "A001",
+  "MAHP": "HP001",
+  "GHI CHU": "Ghi chú cho ngành A001"
+}]

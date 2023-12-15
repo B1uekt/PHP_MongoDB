@@ -41,14 +41,8 @@
                 <?php 
                 if(isset($_GET['isWrong'])){
                     if($_GET['isWrong']==1){ ?>
-                        <h2 style="color: red; font-size: 18px">Tài khoản đã bị khóa</h2>
+                        <h2 style="color: red; font-size: 18px">Mật khẩu không đúng hoặc tài khoản không tồn tại</h2>
                     <?php } 
-                    else if($_GET['isWrong']==2){ ?>
-                        <h2 style="color: red; font-size: 18px">Mật khẩu không đúng</h2>
-                    <?php }
-                    else {  ?> 
-                        <h2 style="color: red; font-size: 18px; font-weight:300">Tài khoản không tồn tại</h2>
-                    <?php }
                 }
                 ?>
                 <div class="form-group">

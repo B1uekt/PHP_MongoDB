@@ -1,0 +1,60 @@
+[{
+  "_id": {
+    "$oid": "656440865a24a1415bedb431"
+  },
+  "MASV": "ABC123",
+  "MAHK": "HK001",
+  "MANHOMHP": "NH001",
+  "DIEMKT": "8",
+  "THI": "9"
+},
+{
+  "_id": {
+    "$oid": "65655ee35b57f16c87d3d677"
+  },
+  "MASV": "ABC323",
+  "MAHK": "HK001",
+  "MANHOMHP": "NH003",
+  "DIEMKT": 10,
+  "THI": 9.5
+},
+{
+  "_id": {
+    "$oid": "65655ee35b57f16c87d3d678"
+  },
+  "MASV": "ABC423",
+  "MAHK": "HK001",
+  "MANHOMHP": "NH004",
+  "DIEMKT": 7,
+  "THI": 7.5
+},
+{
+  "_id": {
+    "$oid": "65655ee35b57f16c87d3d679"
+  },
+  "MASV": "ABC223",
+  "MAHK": "HK001",
+  "MANHOMHP": "NH002",
+  "DIEMKT": 6.8,
+  "THI": 7
+},
+{
+  "_id": {
+    "$oid": "65749f575d6e1e0497ad7594"
+  },
+  "MASV": "ABC123",
+  "MAHK": "HK002",
+  "MANHOMHP": "NH002",
+  "DIEMKT": 8,
+  "THI": 10
+},
+{
+  "_id": {
+    "$oid": "6574a92d5d6e1e0497ad7597"
+  },
+  "MASV": "ABC123",
+  "MAHK": "HK001",
+  "MANHOMHP": "NH003",
+  "DIEMKT": 9,
+  "THI": 7
+}]
