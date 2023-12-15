@@ -75,4 +75,17 @@
   "MATKHAU": "password123",
   "TRANGTHAI": "Hiện diện",
   "MALOP": "L001"
+},
+{
+  "_id": {
+    "$oid": "657baa7b3497c477f80dac1e"
+  },
+  "MASV": "SV236730",
+  "HOTEN": "Nguyễn Khánh",
+  "GIOITINH": "Nữ",
+  "NGAYSINH": "2003-07-22",
+  "DIACHI": "abC",
+  "MATKHAU": "password123",
+  "TRANGTHAI": "Hiện diện",
+  "MALOP": "L003"
 }]

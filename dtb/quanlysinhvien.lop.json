@@ -5,8 +5,8 @@
   "MALOP": "L001",
   "TENLOP": "Lớp DCT121C4",
   "MANGANH": "A001",
-  "COVAN": "GV001",
-  "MANK": "K001"
+  "COVAN": "GV003",
+  "MANK": null
 },
 {
   "_id": {
@@ -15,8 +15,8 @@
   "MALOP": "L002",
   "TENLOP": "Lớp DCT121A4",
   "MANGANH": "A002",
-  "COVAN": "GV002",
-  "MANK": "K001"
+  "COVAN": "GV003",
+  "MANK": null
 },
 {
   "_id": {
@@ -46,5 +46,15 @@
   "TENLOP": "Lớp DCT121E4",
   "MANGANH": "A002",
   "COVAN": "GV005",
+  "MANK": null
+},
+{
+  "_id": {
+    "$oid": "657b9fba3497c477f80dac16"
+  },
+  "MALOP": "L006",
+  "TENLOP": "Lớp DCT121H4",
+  "MANGANH": "A004",
+  "COVAN": "GV004",
   "MANK": null
 }]

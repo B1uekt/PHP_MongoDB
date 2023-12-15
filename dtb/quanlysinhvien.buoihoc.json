@@ -1,0 +1,40 @@
+[{
+  "_id": {
+    "$oid": "6575df041b96f034c70e4ee3"
+  },
+  "MANHOMHP": "NH004",
+  "THU": "Thứ 3",
+  "TIET": "Tiết 1-2"
+},
+{
+  "_id": {
+    "$oid": "6575df041b96f034c70e4ee4"
+  },
+  "MANHOMHP": "NH004",
+  "THU": "Wednesday",
+  "TIET": "Tiết 1-2"
+},
+{
+  "_id": {
+    "$oid": "6575df851b96f034c70e4ee5"
+  },
+  "MANHOMHP": "NH004",
+  "THU": "Thứ 6",
+  "TIET": "Tiết 1-2"
+},
+{
+  "_id": {
+    "$oid": "6575df851b96f034c70e4ee6"
+  },
+  "MANHOMHP": "NH004",
+  "THU": "Thứ 4",
+  "TIET": "Tiết 3-4"
+},
+{
+  "_id": {
+    "$oid": "65768e17dd437a5bfc010d94"
+  },
+  "MANHOMHP": "NH004",
+  "THU": "Thứ 4",
+  "TIET": "Tiết 1-2"
+}]
