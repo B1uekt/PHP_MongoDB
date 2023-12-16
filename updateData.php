@@ -16,10 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $condition = [
         'MASV' => $maSV,
         'MANHOMHP' => $maNHP,
-        // Thêm các điều kiện khác nếu cần
     ];
     $result = $collection->updateOne($condition, $data);
-    //header("Location: quanlygiangvien.php"); 
-    //exit();
 }
 ?>

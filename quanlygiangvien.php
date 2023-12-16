@@ -41,7 +41,7 @@
                     <i class="fa fa-window-close"></i>
                 </div>
                 <div class="model-body-0">
-                    <form name="Update" action="UpdateGV.php" method="post" id="form-login" enctype="multipart/form-data" >
+                    <form name="Update" action="UpdateGV.php" method="post" id="form-login" enctype="multipart/form-data" onsubmit="return validateForm();">
                         <input type="hidden" name="magv" id="magv" value="">
                         <label for="name">Họ và  Tên</label><br>
                         <input class="name" type="text" id="name" name="name" value=""><br>
@@ -72,13 +72,13 @@
                     <i class="fa fa-window-close"></i>
                 </div>
                 <div class="model-body-0">
-                    <form name="add" action="AddGV.php" method="post" id="form-login" enctype="multipart/form-data" >
+                    <form name="add" action="AddGV.php" method="post" id="form-login" enctype="multipart/form-data" onsubmit="return validateAddForm();">
                         <label for="name">Họ và  Tên</label><br>
-                        <input class="name" type="text" id="name" name="name" value=""><br>
+                        <input class="name" type="text" id="addname" name="name" value=""><br>
                         <label for="email">Email</label><br>
-                        <input class="name" type="text" id="email" name="email" value=""><br>
+                        <input class="name" type="text" id="addemail" name="email" value=""><br>
                         <label for="email">Số điện thoại</label><br>
-                        <input class="name" type="text" name="sdt" value=""><br>
+                        <input class="name" type="text" id="sdt"name="sdt" value=""><br>
                         <label for="email">Ngày sinh</label><br>
                         <input class ="name" type="date" id="birthday" name="birthday" value="2018-07-22"/>
                         <label for="cars">Khoa</label><br>

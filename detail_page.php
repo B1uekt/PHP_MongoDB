@@ -1,22 +1,42 @@
 <?php 
     require 'ConnectMongoDB.php';
 
-    
+    $flag = 0;
 	if(isset($_GET['magv'])) {
 		$MaGV = $_GET['magv'];
 		if(isset($_GET['search'])){
 			$keyword = $_GET['search'];
 			$resultSet1 = $collectionHP->findOne(['TENHP' => new MongoDB\BSON\Regex($keyword)]);
-			$filter = [
-				'$and' => [
-					['MAHP' => $resultSet1['MAHP']],
-					['MAGV' => $MaGV],
-				]
-			];
+			if(empty($resultSet1)) {
+				$filter = [
+					'$and' => [
+						['MANHOMHP' => new MongoDB\BSON\Regex($keyword)],
+						['MAGV' => $MaGV],
+					]
+				];
+			}
+			else {
+				$filter = [
+					'$and' => [
+						['MAHP' => $resultSet1['MAHP']],
+						['MAGV' => $MaGV],
+					]
+				];
+				
+			}
 			$resultSet = $collectionNHP->find($filter);
+			$checkSet = $collectionNHP->find($filter);
+			if(empty(iterator_to_array($checkSet))) {
+				$flag = 1;
+			}
 		}
 		else {
+
 			$resultSet = $collectionNHP->find(['MAGV' => $MaGV]);
+			$checkSet = $collectionNHP->find(['MAGV' => $MaGV]);
+			if(empty(iterator_to_array($checkSet))) {
+				$flag = 2;
+			}
 		}
 	}
 	
@@ -55,18 +75,26 @@
 <body>
 	<h1 class = "text-center" style="margin: 24px">
 	<?php if(isset($_GET['magv'])){ ?> CÁC NHÓM HỌC PHẦN ĐƯỢC PHÂN CÔNG</h1>
+		
 		<div class="my-4 sort-search d-flex">     
-			<form class="col-4" action="">
-				<div class="search d-flex">
+			<form class="col-10" action="">
+				<div style="align-items: center" class="search d-flex">
 					<input type="hidden" name="magv" id="masv" value="<?php echo $_GET['magv']?>">
-					<input name="search" type="text" placeholder="&#160;&#160;&#160;Search here" style = "width:100%">     
+					<input style="width:30%" name="search" type="text" placeholder="&#160;&#160;&#160;Search here" style = "width:100%">     
 					<button class="icon-search" type="submit" style="background-color: #07689F; font-size:30px;margin-left:3px; margin-top: auto; margin-bottom:auto;"><span class="material-symbols-outlined">search</span></button>
+					<?php if($flag==1) { ?>
+					<p style="font-weight: 700; margin:0 36px; font-size: 20px; color: red">Không có nhóm học phần cần tìm</p>
+					<?php }
+					else if($flag==2) { ?>
+					<p style="font-weight: 700; margin:0 12px; font-size: 20px; color: red">Giảng viên chưa được phần công nhóm học phần nào</p>
+					<?php }?>
 				</div>
 			</form>  
 		</div>
 	<?php }
 	else if(isset($_GET['masv'])){ ?>XEM ĐIỂM</h1> 
 	<div style="text-align:center" class="my-4 sort-search d-flex">
+	
 		<div><p>MÃ SINH VIÊN: <?php echo $_GET['masv']; ?></p></div>
 		
 		
@@ -94,7 +122,6 @@
 					<?php
 					$counter = 0;
                     foreach ($resultSet as $data): $counter++; ?>
-					
 					<tr style="height: 50px">
 						<th><?php echo $counter; ?></th>
 						<th><?php echo $data['MANHOMHP']; ?></th>
@@ -169,31 +196,35 @@
 			</div>
 		</div>
 	</div>
+	
+    
 </body>
 <script>
     function editRow(rowId, maNHP, diemKT, thi) {
 		var newDiemKT = parseFloat(prompt("Nhập điểm kiểm tra mới:", diemKT));
 		var newThi = parseFloat(prompt("Nhập điểm thi mới:", thi));
 
-		if (!isNaN(newDiemKT) && !isNaN(newThi)) {
+		if ((!isNaN(newDiemKT) && !isNaN(newThi)) && ((newDiemKT > 0) && (newDiemKT < 11 )) && ((newThi > 0) && (newThi < 11 ))) {
 			var xhr = new XMLHttpRequest();
 			xhr.open("POST", "updateData.php", true);
 			xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 			xhr.onreadystatechange = function () {
 				if (xhr.readyState == 4) {
 					if (xhr.status == 200) {
-						console.log(xhr.responseText); // Xử lý phản hồi thành công
+						console.log(xhr.responseText); 
 						document.getElementById("diemKTHeader").innerText = newDiemKT;
                     	document.getElementById("thiHeader").innerText = newThi;
+						var errorMessageElement = document.getElementById('errorMessage');
+						alert(" Cập nhật dữ liệu thành công");
 					} else {
-						console.error("Lỗi: " + xhr.status); // Xử lý lỗi
+						console.error("Lỗi: " + xhr.status);
 					}
 				}
 			};
 			xhr.send("rowId=" + encodeURIComponent(rowId) + "&maNHP=" + encodeURIComponent(maNHP) +
 				"&newDiemKT=" + encodeURIComponent(newDiemKT) + "&newThi=" + encodeURIComponent(newThi));
 		} else {
-			console.error("Dữ liệu nhập không hợp lệ. Vui lòng nhập giá trị số hợp lệ.");
+			alert(" Dữ liệu nhập không hợp lệ. Vui lòng nhập giá trị số hợp lệ.");
 		}
 	}
 
