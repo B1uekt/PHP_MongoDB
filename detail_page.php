@@ -81,7 +81,7 @@
 				<div style="align-items: center" class="search d-flex">
 					<input type="hidden" name="magv" id="masv" value="<?php echo $_GET['magv']?>">
 					<input style="width:30%" name="search" type="text" placeholder="&#160;&#160;&#160;Search here" style = "width:100%">     
-					<button class="icon-search" type="submit" style="background-color: #07689F; font-size:30px;margin-left:3px; margin-top: auto; margin-bottom:auto;"><span class="material-symbols-outlined">search</span></button>
+					<button class="icon-search" type="submit" style=" font-size:30px;margin-left:3px; margin-top: auto; margin-bottom:auto;"><span class="material-symbols-outlined">search</span></button>
 					<?php if($flag==1) { ?>
 					<p style="font-weight: 700; margin:0 36px; font-size: 20px; color: red">Không có nhóm học phần cần tìm</p>
 					<?php }

@@ -41,7 +41,7 @@
                     <i class="fa fa-window-close"></i>
                 </div>
                 <div class="model-body-0">
-                    <form name="Update" action="UpdateSV.php" method="post" id="form-login" enctype="multipart/form-data">
+                    <form name="Update" action="UpdateSV.php" method="post" id="form-login" enctype="multipart/form-data" onsubmit="return validateUpdateForm();">
                         <input type="hidden" name="masv" id="masv" value="">
                         <label for="name">Họ và  Tên</label><br>
                         <input class="name" type="text" id="name" name="name" value=""><br>
@@ -85,13 +85,13 @@
                     <i class="fa fa-window-close"></i>
                 </div>
                 <div class="model-body-0">
-                    <form name="add" action="AddSV.php" method="post" id="form-login" enctype="multipart/form-data">
+                    <form name="add" action="AddSV.php" method="post" id="form-login" enctype="multipart/form-data" onsubmit="return validateAddForm();">
                         <label for="name">Họ và Tên</label><br>
-                        <input class="name" type="text" id="name" name="name" value=""><br>
+                        <input class="name" type="text" id="nameadd" name="name" value=""><br>
                         <label for="email">Ngày sinh</label><br>
-                        <input class ="name" type="date" id="birthday" name="birthday" value="2018-07-22"/>
+                        <input class ="name" type="date" id="birthdayadd" name="birthday" value="2018-07-22"/>
                         <label for="address">Địa chỉ</label><br>
-                        <input class ="name" type="text" id="address" name="address" value=""/>
+                        <input class ="name" type="text" id="addressadd" name="address" value=""/>
                         <label for="address">LỚP</label><br>
                         <select class="name" name="class" id="class">
                         <?php 
@@ -101,7 +101,7 @@
                         <?php endforeach; ?>
                         </select>
                         <label for="cars">Giới tính</label><br>
-                        <select style="margin-bottom: 10px" name="gender" id="gender">
+                        <select style="margin-bottom: 10px" name="gender" id="genderadd">
                             <option value="Nam">Nam</option>
                             <option value="Nữ">Nữ</option>
                         </select>

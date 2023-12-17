@@ -5,30 +5,53 @@ require 'ConnectMongoDB.php';
 
 $collection = $database->selectCollection('sinhvien');
 $collectionClass = $database->selectCollection('lop');
+$count = $collection->countDocuments();
+function generateStudentID($chuoi_nam_hoc, $count) {
 
-function generateStudentID() {
-    $prefix = "SV";
-    $year = date("y");
-    $uniqueNumber = mt_rand(1000, 9999);
+    $nam_hoc_arr = explode('-', $chuoi_nam_hoc);
 
-    return $prefix . $year . $uniqueNumber;
+    $nam_bat_dau_hoc = $nam_hoc_arr[0];
+
+    $nam_bat_dau_2_chu_so_cuoi = substr($nam_bat_dau_hoc, -2);
+    
+    $ma_sinh_vien = "31{$nam_bat_dau_2_chu_so_cuoi}41";
+    if($count <8){
+        $count++;
+        $ma_sinh_vien = "31{$nam_bat_dau_2_chu_so_cuoi}41000".$count;
+    }
+    else if($count > 8 && $count < 98){
+        $count++;
+        $ma_sinh_vien = "31{$nam_bat_dau_2_chu_so_cuoi}4100".$count;
+    }
+    else if($count > 98 && $count < 998){
+        $count++;
+        $ma_sinh_vien = "31{$nam_bat_dau_2_chu_so_cuoi}410".$count;
+    }
+    else{
+        $ma_sinh_vien = "31{$nam_bat_dau_2_chu_so_cuoi}41".$count;
+    }
+    
+    return $ma_sinh_vien;
 }
-
-// Kiểm tra tính duy nhất của mã số sinh viên
 
 if (isset($_POST['submit'])) {
     // Get input values
-    do {
-        $newStudentID = generateStudentID();
-        $existingStudent = $collection->findOne(['student_id' => $newStudentID]);
-    } while (!empty($existingStudent));
+    
     $SVname = $_POST['name'];
-    $SVemail = $_POST['email'];
+
     $SVbirthday = $_POST['birthday'];
+
     $SVClass = $_POST['class'];
+
     $SVgender= $_POST['gender'];
+
     $SVaddress = $_POST['address'];
-    var_dump($SVname);
+
+    $temp = $collectionClass->findOne(['TENLOP' => $SVClass]);
+    $result = $collectionNienkhoa->findOne(['MANK' => $temp['MANK']]);
+
+    $newStudentID = generateStudentID($result['TENNIENKHOA'], $count);
+    var_dump($newStudentID);
     $classData = $collectionClass->findOne(['TENLOP' => $SVClass]);
     $data = [
         'MASV' => $newStudentID,

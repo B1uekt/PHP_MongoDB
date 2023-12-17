@@ -1,3 +1,54 @@
+function calculateAge(birthdate) {
+    var birthDate = new Date(birthdate);
+    var currentDate = new Date();
+    var birthYear = birthDate.getFullYear();
+    var currentYear = currentDate.getFullYear();
+
+    var age = currentYear - birthYear;
+    if (currentDate < new Date(currentYear, birthDate.getMonth(), birthDate.getDate())) {
+        age--;
+    }
+
+    return age;
+}
+function validateUpdateForm() {
+    var name = document.getElementById('name').value;
+    var birthday = document.getElementById("birthday").value;
+    if (name.trim() === '') {
+        alert('Họ và Tên không được để trống');
+        return false;
+    }
+
+    var age = calculateAge(birthday);
+    console.log(age);
+    if(age < 17){
+        alert("Tuổi không hợp lệ");
+        return false; 
+    }
+    return true;
+}
+    function validateAddForm() {
+        var nameAdd = document.getElementById('nameadd').value;
+        var birthdayAdd = document.getElementById('birthdayadd').value;
+        var addressAdd = document.getElementById('addressadd').value;
+
+        if (nameAdd.trim() === '') {
+            alert('Họ và Tên không được để trống');
+            return false;
+        }
+        var age = calculateAge(birthdayAdd);
+        if(age < 17){
+            alert("Tuổi không hợp lệ");
+            return false; 
+        }
+
+        if (addressAdd.trim() === '') {
+            alert('Địa chỉ không được để trống');
+            return false;
+        }
+        return true;
+    }
+
 function UpdateSV(button){
     const ID = button.value;
     let requestSVInfo = new XMLHttpRequest();
