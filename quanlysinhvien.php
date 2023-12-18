@@ -84,6 +84,7 @@
                     <div class="header-form"><h3>THÊM SINH VIÊN</h3></div>
                     <i class="fa fa-window-close"></i>
                 </div>
+                
                 <div class="model-body-0">
                     <form name="add" action="AddSV.php" method="post" id="form-login" enctype="multipart/form-data" onsubmit="return validateAddForm();">
                         <label for="name">Họ và Tên</label><br>
@@ -116,13 +117,25 @@
         <div class="col-10" style="margin-left:16.66%">
             <h2><i class="fa fa-gear"></i>THÔNG TIN SINH VIÊN</h2>
             <div class="new-p my-3">
-                <a  id="btn-addinfor" href = "#"><i class="fa fa-plus-circle" style="margin-right: 10px;"></i>THÊM SINH VIÊN</a>   
+                <a  id="btn-addinfor" href = "#"><i class="fa fa-plus-circle" style="margin-right: 10px;"></i>THÊM SINH VIÊN</a>  
             </div>
+                <form action="Addstudentusingexcelfile.php" method="post" enctype="multipart/form-data">
+                    <input type="file" name="file" id="file" accept=".xls, .xlsx">
+                    
+                    <input type="submit" name="submit" value="Upload">
+                </form> 
             <div class="my-4 sort-search d-flex">     
-                <form class="col-4" action="">
+                <form class="col-10" action="">
                     <div class="search d-flex">
-                        <input name="search" type="text" placeholder="&#160;&#160;&#160;Search here" style = "width:100%">     
+                        <input name="search" type="text" placeholder="&#160;&#160;&#160;Search here" style = "width:30%">     
                         <button type="submit" style="font-size:30px;margin-left:3px; margin-top: auto; margin-bottom:auto;"><span class="material-symbols-outlined">search</span></button>
+                        <?php if(isset($_GET['Wrong'])){ ?>
+                            <div class="d-flex" style="align-items: center">
+                                <h3 style = "color: red">File đã tải lên không đúng định dạng</h3>
+                            </div>
+                        <?php }?>
+                        
+                        
                     </div>
                 </form>  
             </div>
@@ -154,8 +167,8 @@
                             <div class="col-2 text-center product"><?php echo $majorData['TENLOP']; ?></div>
                             <div class="col-2 text-center title"><?php echo $data['TRANGTHAI']; ?></div>
                             <div class="col-2 text-center product btn-de-up">
-                                <button onclick="UpdateSV(this); event.stopPropagation();" name="update" value= "<?php echo $data['MASV'] ?>" class="btn but-update">UPDATE</button>
-                                <button onclick="Reset('<?php echo $data['MASV'] ?>'); event.stopPropagation();" name="update" class="btn but-update">RESET</button>
+                                <button onclick="UpdateSV(this); event.stopPropagation();" name="update" value= "<?php echo $data['MASV'] ?>" class="btn but-update"><span class="material-symbols-outlined">update</span></button>
+                                <button onclick="Reset('<?php echo $data['MASV'] ?>'); event.stopPropagation();" name="update" class="btn but-update"><span class="material-symbols-outlined">restart_alt</span></button>
                             </div>
                         </div>
                     <?php endforeach; ?>

@@ -73,7 +73,7 @@
                     <i class="fa fa-window-close"></i>
                 </div>
                 <div class="model-body-0">
-                    <form name="add" action="AddClass.php" method="post" id="form-login" enctype="multipart/form-data">
+                    <form name="add" action="AddClass.php" method="post" id="form-login" enctype="multipart/form-data" onsubmit = "return validateForm();">
                         <label for="name">Tên Lớp</label><br>
                         <input class="name" type="text" id="nameClass" name="nameClass" value=""><br>
 
@@ -210,7 +210,14 @@
               });
             }
 
-            
+            function validateForm() {
+                var nameValue = document.getElementById("nameClass").value;
+                if (nameValue === "") {
+                    alert("Vui lòng điền tên lớp !!!");
+                    return false;
+                }
+                return true;
+            }
         </script>
     </body>
 </html>

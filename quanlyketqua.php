@@ -43,21 +43,21 @@
                     <div class="col-6">
                         <h2>Thông tin chung</h2>
                         <label for="hocky">Học kỳ:</label>
-                        <select name="hocky" id="hocky">
+                        <select name="hocky" id="hocky" required>
                         <option value="">Chọn học kỳ</option>
                         <?php foreach ($document3 as $data): ?>
                             <option value=<?php echo $data['MAHK']; ?>><?php echo $data['TENHK']; ?></option>
                         <?php endforeach; ?>
                         </select><br>
                         <label for="giangvien">Tên giảng viên:</label>
-                        <select name="giangvien" id="giangvien" onchange = "getHP(this,'MAGV','hocphan.php')">
+                        <select name="giangvien" id="giangvien" onchange = "getHP(this,'MAGV','hocphan.php')"  required>
                         <option value="">Chọn giảng viên</option>
                         <?php foreach ($document2 as $data): ?>
                             <option value=<?php echo $data['MAGV']; ?>><?php echo $data['TENGV']; ?></option>
                         <?php endforeach; ?>
                         </select><br>
                         <label for="diem">Nhập file điểm</label>
-                        <input type="file" id="diem" name="diem"/>
+                        <input type="file" id="diem" name="diem" required/>
                         <input type="submit" name="submit" value="Submit">
                     </div>
                     <div class="col-6">

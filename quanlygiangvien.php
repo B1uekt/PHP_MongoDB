@@ -4,6 +4,7 @@
     $resultSet = $collectionGiangVien->find();
     $resultSet1 = $collectionKhoa->find();
     $resultSet2 = $collectionKhoa->find();
+    $resultSet3 = $collectionHP->find();
     if(isset($_GET['search'])){
         $keyword = $_GET['search'];
         $filter = [
@@ -97,6 +98,30 @@
                 </div>
             </div>
         </div>
+        <div class="model-0 hide" id = "phancong">
+            <div class="model-inner-0">  
+                <div class="model-header-0 d-flex">
+                    <div class="header-form"><h3>PHÂN CÔNG</h3></div>
+                    <i class="fa fa-window-close"></i>
+                </div>
+                <div class="model-body-0">
+                    <form id="formPhanCong" name="add" action="phancong.php" method="post" onsubmit="return checkSelectValues();">
+                        <div id="hocphanItems">
+                            <label for="hocphan">Học phần</label><br>
+                            <select class="name select-box" name="hocphans[]">
+                                <option value="">Chon học phần</option>
+                                <?php foreach ($resultSet3 as $data3): ?>
+                                    <option value="<?php echo $data3['MAHP'] ?>"><?php echo $data3['TENHP'] ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                        <input type="hidden" id="MAGV" name="MAGV" value="">
+                        <button class="addscheduleitem" type="button" onclick="addhocphanItem()">Thêm mục học</button>
+                        <input name ="submit" class="submit" type="submit" value="SUBMIT">
+                    </form>
+                </div>
+            </div>
+        </div>
         <div class="col-2 nav float-left">
             <?php include "nav.html" ?>
         </div>
@@ -143,8 +168,9 @@
                             <div class="col-2 text-center product"><p><?php echo $majorData['TENKHOA']; ?></p></div>
                             <div class="col-2 text-center title"><?php echo $data['TRANGTHAI'] ?></div>
                             <div class="col-2 text-center product btn-de-up">
-                                <button class="btn but-update" onclick="UpdateGV(this); event.stopPropagation();" name="update" value= "<?php echo $data['MAGV'] ?>" >UPDATE</button>
-                                <button class="btn but-update" onclick="Reset('<?php echo $data['MAGV'] ?>'); event.stopPropagation();" name="reset"  >RESET</button>
+                                <button class="btn but-update" onclick="UpdateGV(this); event.stopPropagation();" name="update" value= "<?php echo $data['MAGV'] ?>" ><span class="material-symbols-outlined">update</span></button>
+                                <button class="btn but-update" onclick="Reset('<?php echo $data['MAGV'] ?>'); event.stopPropagation();" name="reset"  ><span class="material-symbols-outlined">restart_alt</span></button>
+                                <button class="btn but-update but-phancong"  onclick="event.stopPropagation();" value="<?php echo $data['MAGV']; ?>"><span class="material-symbols-outlined">school</span></button>
                             </div>
                         </div>
                     <?php endforeach; ?>
@@ -186,6 +212,34 @@
             });
             icon0.addEventListener('click',  toggleCLose2);
             submit0.addEventListener('click', toggleCLose2);
+
+            var buttonGroups =document.querySelectorAll('.btn-de-up')
+            var model= document.querySelector('#phancong');
+            var icon = document.querySelector('#phancong i');
+           
+            function toggleCLose(){
+                model.classList.add('hide');
+                const form = document.getElementById('formPhanCong');
+                const divs = form.querySelectorAll('div:not(#hocphanItems)');
+
+                divs.forEach(div => {
+                    div.parentNode.removeChild(div); 
+                });
+                const selectInDiv = form.querySelector('#hocphanItems select');
+                if (selectInDiv) {
+                    selectInDiv.value = "";
+                }
+            }
+            buttonGroups.forEach(group => {
+                const updateButton = group.querySelector('.but-phancong');
+                 updateButton.addEventListener('click', () => {
+                    model.classList.remove('hide');
+                    var value = event.currentTarget.value;
+                    document.getElementById("MAGV").value = value; 
+                });
+            });
+            icon.addEventListener('click',  toggleCLose);
+
         </script>
         <script>
             /* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
@@ -203,8 +257,26 @@
                 }
               });
             }
+        function addhocphanItem() {             
+                const sourceContent = document.getElementById('hocphanItems')
+                const content = document.getElementById('hocphanItems').innerHTML;
+                const newItem = document.createElement('div');
+                newItem.innerHTML = content;
+                sourceContent.appendChild(newItem);
+        }
+        function checkSelectValues() {
+            const selectBoxes = document.getElementsByClassName('select-box');
+            const selectedValues = Array.from(selectBoxes).map(select => select.value);
 
+            // Kiểm tra xem các giá trị đã được chọn có giống nhau hay không
+            const uniqueValues = new Set(selectedValues);
+            if (uniqueValues.size !== selectedValues.length) {
+                alert('Các giá trị không được trùng nhau. Vui lòng chọn lại.');
+                return false; // Ngăn form submit nếu có giá trị trùng nhau
+            }
+
+            return true; // Cho phép form submit nếu không có giá trị trùng nhau
+        }
         </script>
-        
     </body>
 </html>

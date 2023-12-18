@@ -70,11 +70,11 @@
                 <div class="model-body-0">
                     <form id = "formHocphan">
                         <label for="name">Tên học phần</label><br>
-                        <input class="name" type="text" id="name" name="name" value=""><br>
+                        <input class="name" type="text" id="name" name="name" value="" required><br>
                         <label for="amount">Số tính chỉ</label><br>
-                        <input class="name" type="text" id="amount" name="amount" value=""><br>
+                        <input class="name" type="number" id="amount" name="amount" value="" required><br>
                         <label for="status">Trạng thái</label><br>
-                        <select class ="name" name="status" id="status">
+                        <select class ="name" name="status" id="status" required>
                             <option value="Active">Active</option>
                             <option value="Passive">Passive</option>
                         </select>

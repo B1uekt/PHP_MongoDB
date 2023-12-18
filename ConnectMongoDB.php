@@ -19,4 +19,5 @@
 	$collectionKQ = $database->selectCollection('ketqua');
 	$collectionHK = $database->selectCollection('hocky');
     $collectionNHP = $database->selectCollection('nhomhocphan');
+    $collectionDamNhiem = $database->selectCollection('damnhiem');
 ?>

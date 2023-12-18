@@ -2,7 +2,6 @@
 
 require 'ConnectMongoDB.php';
 
-
 $collection = $database->selectCollection('sinhvien');
 $collectionClass = $database->selectCollection('lop');
 $count = $collection->countDocuments();
@@ -15,15 +14,15 @@ function generateStudentID($chuoi_nam_hoc, $count) {
     $nam_bat_dau_2_chu_so_cuoi = substr($nam_bat_dau_hoc, -2);
     
     $ma_sinh_vien = "31{$nam_bat_dau_2_chu_so_cuoi}41";
-    if($count <8){
+    if($count <9){
         $count++;
         $ma_sinh_vien = "31{$nam_bat_dau_2_chu_so_cuoi}41000".$count;
     }
-    else if($count > 8 && $count < 98){
+    else if($count >= 9 && $count < 99){
         $count++;
         $ma_sinh_vien = "31{$nam_bat_dau_2_chu_so_cuoi}4100".$count;
     }
-    else if($count > 98 && $count < 998){
+    else if($count >= 99 && $count < 998){
         $count++;
         $ma_sinh_vien = "31{$nam_bat_dau_2_chu_so_cuoi}410".$count;
     }

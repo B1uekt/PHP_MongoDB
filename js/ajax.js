@@ -36,28 +36,47 @@ function getNHP(select, field, page){
 }
 
 function changeData(idform, pagesever) {
-    var formData = new FormData(document.getElementById(idform));
-    var request = new XMLHttpRequest();
-    console.log(formData);
-    request.onreadystatechange = function() {
-        console.log(this.reponse);
-        if (request.readyState == XMLHttpRequest.DONE) {
-            if (request.status == 200) {
-                console.log("Successfully change data");
-                window.location.reload(true);
-                
-            } else {
-                console.error('Failed to change data');
+    const form = document.getElementById(idform);
+    const elements = form.elements;
+
+    let isEmpty = false;
+
+    for (let i = 0; i < elements.length; i++) {
+        const element = elements[i];
+
+        if (element.tagName === 'INPUT' || element.tagName === 'SELECT') {
+            if (element.value.trim() === '') {
+                isEmpty = true;
+                break;
             }
         }
-    };
+    }
+    if (isEmpty) {
+        alert('Vui lòng điền đầy đủ thông tin');
+    } else {
+        var formData = new FormData(document.getElementById(idform));
+        var request = new XMLHttpRequest();
+        console.log(formData);
+        request.onreadystatechange = function() {
+            console.log(this.reponse);
+            if (request.readyState == XMLHttpRequest.DONE) {
+                if (request.status == 200) {
+                    console.log("Successfully change data");
+                    window.location.reload(true);
+                    
+                } else {
+                    console.error('Failed to change data');
+                }
+            }
+        };
 
-    request.open("POST", pagesever, true);
-    request.send(formData);
+        request.open("POST", pagesever, true);
+        request.send(formData);
 
 
-    var modal = document.getElementById('addinfor');
-    modal.style.display = 'none'; 
+        var modal = document.getElementById('addinfor');
+        modal.style.display = 'none';
+    } 
 }
 
 function updateForm(button){
